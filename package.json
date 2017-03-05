@@ -14,8 +14,14 @@
     "globals": [
       "it",
       "describe",
-      "beforeEach"
+      "beforeEach",
+      "expect"
     ]
+  },
+  "jest":{
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
   },
   "dependencies": {
     "axios": "^0.12.0",
@@ -44,6 +50,7 @@
   "devDependencies": {
     "assert": "^1.4.1",
     "babel-core": "^6.16.0",
+    "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.0",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-react-html-attrs": "^2.0.0",
@@ -58,6 +65,8 @@
     "concurrently": "^3.1.0",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "google-map-react": "^0.22.3",
+    "jest": "^19.0.2",
     "json-loader": "^0.5.4",
     "material-ui": "^0.16.6",
     "mocha": "^3.2.0",
