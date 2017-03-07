@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "webpack-watch": "webpack --watch --config webpack.config.prod.js",
+    "webpack-watch": "webpack --watch",
     "start": "node  app/bin/www",
     "express-server": "DEBUG=databaseConnection,LOG,tweets,queryTweets,pushTweets  nodemon -w . -w app/www",
     "test-express": "standard --verbose | snazzy || true && mocha app/test --timeout 10000",
