@@ -5,6 +5,7 @@ const loggerModule = 'protectedApiRoutes.js'
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 const account = require('./account')
+const blogEntryAdmin = require('./blogEntryAdmin')
 const authenticate = require('./authenticate')
 const env = process.env.NODE_ENV || 'development'
 
@@ -48,11 +49,26 @@ authenticateApiRoutes.route('/authenticate')
 protectedApiRoutes.route('/account')
   .get(account.getAccounts)
   .post(account.postAccount)
+
 protectedApiRoutes.route('/account/:username')
   .get(account.getAccountByUsername)
+
 protectedApiRoutes.route('/account/:id')
   .delete(account.deleteAccount)
   .put(account.updateAccount)
+
+// Blog entry admin routes
+const blogEntryAdminURI = '/blogEntry'
+protectedApiRoutes.route(blogEntryAdminURI)
+  .get(blogEntryAdmin.getBlogEntries)
+  .post(blogEntryAdmin.postBlogEntries)
+
+protectedApiRoutes.route(blogEntryAdminURI + '/:dayNumber')
+  .get(blogEntryAdmin.getBlogEntryByDay)
+
+protectedApiRoutes.route(blogEntryAdminURI + '/:id')
+  .delete(blogEntryAdmin.deleteBlogEntry)
+  .put(blogEntryAdmin.updateBlogEntry)
 
 function _decrypt (text, secret) {
   var decipher = crypto.createDecipher('aes-256-ctr', secret)

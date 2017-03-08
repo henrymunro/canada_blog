@@ -91,7 +91,7 @@ describe('Account', () => {
         if (err) console.error(err)
         chai.request(server)
             .get('/api/account/' + savedAccount.username)
-            .send(savedAccount.username)
+            .send()
             .end((err, res) => {
               if (err) console.error(err)
               res.should.have.status(200)
