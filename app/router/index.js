@@ -1,5 +1,6 @@
 const crypto = require('crypto')
 const { logger, logError } = require('../logger')
+const protectedApiRoutes = require('./routes/protectedApiRoutes')
 const loggerModule = 'index.js'
 
 module.exports = function (app) {
@@ -37,8 +38,8 @@ module.exports = function (app) {
   })
 
   app.use('/home', require('./routes/home'))
-  app.use('/api', require('./routes/protectedApiRoutes/protectedApiRoutesIndex').authenticateApiRoutes)
-  app.use('/api', require('./routes/protectedApiRoutes/protectedApiRoutesIndex').protectedApiRoutes)
+  app.use('/api', protectedApiRoutes.authenticateApiRoutes)
+  app.use('/api', protectedApiRoutes.protectedApiRoutes)
   // app.use('/log', require('./routes/log'))
 }
 

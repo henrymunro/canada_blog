@@ -1,4 +1,4 @@
-import reducer from '../js/reducers/mapReducer'
+import reducer from '../js/map/reducer'
 import * as types from '../js/constants/ActionTypes'
 
 describe('Map reducer', () => {

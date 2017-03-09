@@ -7,7 +7,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 
-import Layout from './components/Layout'
+// For permormance checking remove in prouction
+import Perf from 'react-addons-perf'
+window.Perf = Perf
+
+// import Layout from './components/Layout'
+import { AdminHome } from './admin'
 import store from './appStore'
 
 injectTapEventPlugin()
@@ -16,7 +21,7 @@ const app = document.getElementById('app')
 
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-    <Layout />
+    <AdminHome />
   </MuiThemeProvider>
 </Provider>, app)
 

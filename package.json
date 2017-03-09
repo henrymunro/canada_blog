@@ -18,7 +18,7 @@
       "expect"
     ]
   },
-  "jest":{
+  "jest": {
     "transform": {
       "^.+\\.js?$": "babel-jest"
     }
@@ -71,6 +71,7 @@
     "material-ui": "^0.16.6",
     "mocha": "^3.2.0",
     "react": "^15.0.0",
+    "react-addons-perf": "^15.4.2",
     "react-dom": "^15.0.0",
     "react-faux-dom": "^3.0.0",
     "react-file-input": "^0.2.5",

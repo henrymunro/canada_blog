@@ -1,4 +1,4 @@
-import * as actions from '../js/actions/mapActions'
+import * as actions from '../js/map/actions'
 import * as types from '../js/constants/ActionTypes'
 
 describe('Map actions', () => {
