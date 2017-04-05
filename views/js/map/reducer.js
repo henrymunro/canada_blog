@@ -1,32 +1,18 @@
-export default function reducer (state = {
+import { handleActions } from 'redux-actions'
+
+const initialState = {
   mapDefaults: {
     center: [45.7729, -75.43200],
     zoom: 6
   },
-  center: [45.7729, -75.43200],
-  zoom: 6,
-  APIKey: 'AIzaSyBe2yqXC5gvKdZkgwWFFAPjfOyAwJDo3cs',
-  markers: [{
-    name: 'Montreal',
-    center: [45.5017, -73.5673]
-  }, {
-    name: 'Ottowa',
-    center: [45.4215, -75.6972]
-  }, {
-    name: 'Toronto',
-    center: [43.6532, -79.3832]
-  }]
-}, action) {
-  switch (action.type) {
-
-    /** *********     UPDATE MAP PROPERTIES ******************/
-    case 'UPDATE_MAP_CENTER': {
-      return {...state, center: action.payload}
-    }
-
-    case 'UPDATE_MAP_ZOOM': {
-      return {...state, zoom: action.payload}
-    }
-  }
-  return state
+  APIKey: 'AIzaSyBkbeNS5l0CvM9I0LldK9B4uGhLfWFzRkI'
 }
+
+export default handleActions({
+  ON_DEFAULT_MAP_LOAD: (state, action) => (state)
+}, initialState)
+
+// Selectors
+export const getMapAPIKey = (state) => (state.map.APIKey)
+
+export const getMapDefaults = (state) => (state.map.mapDefaults)

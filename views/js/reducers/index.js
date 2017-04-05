@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
 
-import axios from './axiosReducer'
-import map from '../map/reducer'
 import { reducer as admin } from '../admin'
+import { reducer as blog } from '../blog'
+import { reducer as home } from '../home'
+import { reducer as map } from '../map'
 
 export default combineReducers({
-  axios,
+  admin,
+  blog,
+  home,
   map,
-  admin
+  routing: routerReducer
 })

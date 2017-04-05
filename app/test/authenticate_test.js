@@ -7,7 +7,7 @@ const Account = require('../database/models/accountModel')
 // Require the dev-dependencies
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const server = require('../app')
+var server = require('../app')
 const should = chai.should() // eslint-disable-line 
 
 const testAccount = {
@@ -20,11 +20,23 @@ chai.use(chaiHttp)
 // Our parent block
 describe('Authenticate', () => {
   beforeEach((done) => { // Before each test we empty the database
+        // Clear the require cache to completly destroy the server
+    Object.keys(require.cache).forEach(function (key) {
+      if (
+        /\/home\/henry\/WebDev\/canada_blog\/app/ig.test(key) && // remove only app code
+        !/\/home\/henry\/WebDev\/canada_blog\/app\/database/ig.test(key) // leave DB intact
+        ) { delete require.cache[key] }
+    })
+    process.env.NODE_ENV = 'test_production'
+    server = require('../app')
     Account.remove({}, (err) => {
       if (err) console.error(err)
       done()
     })
   })
+  // afterEach(function (done) {
+  //   server.close(done);
+  // })
   /*
     * Test the /POST route
     */

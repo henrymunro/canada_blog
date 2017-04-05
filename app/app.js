@@ -12,6 +12,8 @@ const path = require('path')
 const { logger } = require('./logger')
 const loggerModule = 'app.js'
 
+// console.log('NODE ENV: ', process.env.NODE_ENV)
+
 logger.info('STARTING UP CANADA BLOG SERVER APP', {module: loggerModule, startUp: true})
 
 // view engine setup
@@ -31,6 +33,9 @@ require('./logger').HTTPRequestLogger(app)
 
 // Loads Routes
 require('./router/index')(app)
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/../build/index.html'))
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

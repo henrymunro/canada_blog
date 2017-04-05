@@ -7,21 +7,44 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 
+import { Router, Route, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+
 // For permormance checking remove in prouction
 import Perf from 'react-addons-perf'
 window.Perf = Perf
 
 // import Layout from './components/Layout'
-import { AdminHome } from './admin'
+import { AdminHome } from './admin/adminHome'
+import { NewBlogEntry } from './admin/newBlogEntry'
+import { BlogEntries } from './admin/blogEntries'
+import { RouteComponent } from './admin/route'
+import { MapComponent } from './map'
+import { Blog } from './blog'
+import { Home } from './home'
 import store from './appStore'
 
 injectTapEventPlugin()
 
 const app = document.getElementById('app')
 
+const history = syncHistoryWithStore(browserHistory, store)
+
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-    <AdminHome />
+    <Router history={history}>
+      <Route component={AdminHome}>
+        <Route path='/' component={MapComponent} />
+        <Route path='newBlogEntry' component={NewBlogEntry} />
+        <Route path='route' component={RouteComponent} />
+        <Route path='blogEntries' component={BlogEntries} />
+        <Route path='map' component={MapComponent} />
+        <Route path='blog' component={Blog} />
+        <Route path='home' component={Home} />
+      </Route>
+    </Router>
   </MuiThemeProvider>
 </Provider>, app)
-
+/*
+    <AdminHome />
+*/

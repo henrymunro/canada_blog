@@ -11,10 +11,12 @@ module.exports = mongoose.model('BlogEntry', new Schema({
   date: { type: Date, required: true },
   title: { type: String, required: true },
   summary: { type: String, required: true },
-  distanceKm: { type: Number, required: true },
-  fullText: { type: String, required: false },
+  center: { type: Object },
+  distanceKm: { type: Number, default: 0 },
+  blog: { type: Array, required: false },
   photos: { type: Array, required: false },
   budget: { type: Array, required: false },
-  addedDate: { type: Date, default: new Date() }
+  addedDate: { type: Date, default: new Date() },
+  endDate: Date
 }))
 

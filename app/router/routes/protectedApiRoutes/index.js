@@ -4,10 +4,11 @@ const { logger, logError } = require('../../../logger')
 const loggerModule = 'protectedApiRoutes.js'
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
-const account = require('./account')
-const blogEntryAdmin = require('./blogEntryAdmin')
 const authenticate = require('./authenticate')
+
 const env = process.env.NODE_ENV || 'development'
+
+// console.log('NODE_ENV in AUTH: ', process.env.NODE_ENV)
 
 // Protcted API  level middleware
 protectedApiRoutes.use(function (req, res, next) {
@@ -46,29 +47,29 @@ authenticateApiRoutes.route('/authenticate')
   .post(authenticate.authenticateUser)
 
 // Account routes
-protectedApiRoutes.route('/account')
-  .get(account.getAccounts)
-  .post(account.postAccount)
+require('./account')(protectedApiRoutes)
 
-protectedApiRoutes.route('/account/:username')
-  .get(account.getAccountByUsername)
+// // Blog entry admin routes
+// const blogEntryAdminURI = '/blogEntry'
+// protectedApiRoutes.route(blogEntryAdminURI)
+//   .get(blogEntryAdmin.getBlogEntries)
+//   .post(blogEntryAdmin.postBlogEntries)
 
-protectedApiRoutes.route('/account/:id')
-  .delete(account.deleteAccount)
-  .put(account.updateAccount)
+// protectedApiRoutes.route(blogEntryAdminURI + '/:dayNumber')
+//   .get(blogEntryAdmin.getBlogEntryByDay)
 
-// Blog entry admin routes
-const blogEntryAdminURI = '/blogEntry'
-protectedApiRoutes.route(blogEntryAdminURI)
-  .get(blogEntryAdmin.getBlogEntries)
-  .post(blogEntryAdmin.postBlogEntries)
+// protectedApiRoutes.route(blogEntryAdminURI + '/:id')
+//   .delete(blogEntryAdmin.deleteBlogEntry)
+//   .put(blogEntryAdmin.updateBlogEntry)
 
-protectedApiRoutes.route(blogEntryAdminURI + '/:dayNumber')
-  .get(blogEntryAdmin.getBlogEntryByDay)
+// Route point routes
+require('./blogEntryAdmin')(protectedApiRoutes)
 
-protectedApiRoutes.route(blogEntryAdminURI + '/:id')
-  .delete(blogEntryAdmin.deleteBlogEntry)
-  .put(blogEntryAdmin.updateBlogEntry)
+// Route point routes
+require('./route')(protectedApiRoutes)
+
+// Route point routes
+require('./photos')(protectedApiRoutes)
 
 function _decrypt (text, secret) {
   var decipher = crypto.createDecipher('aes-256-ctr', secret)
