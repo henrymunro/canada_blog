@@ -5,7 +5,7 @@ const routeRoutes = require('../apiRouteCreator')(RouteModel)
 
 module.exports = function (apiRoute) {
   apiRoute.route(routeURI)
-.get(routeRoutes.getEntries)
+.get((req, res, next) => routeRoutes.getEntries(req, res, next, {endDate: null}, {number: 1}))
 .post(routeRoutes.postEntries)
 
   apiRoute.route(routeURI + '/multiple')

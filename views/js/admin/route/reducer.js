@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import { combineReducers } from 'redux'
-import { updateObject, removeElementFromArray, updateOrAddToEditArray } from '../../reducers/reducerUtilities'
+import { updateObject, removeElementFromArray, updateOrAddToEditArray, addOrUpdateItemInArray, moveElementInArray } from '../../reducers/reducerUtilities'
 
 import mapImports, { mapReducerCreator } from '../../map'
 const { turnRoutePointsToLines } = mapImports.utilities
@@ -30,6 +30,7 @@ const routeReducer = handleActions({
 // Edit data
   EDIT_ROUTE_POINT: (state, action) => _editRoutePoint(state, action),
   DELETE_ROUTE_ENTRY_FULFILLED: (state, action) => _deleteRouteEntry(state, action),
+  MOVE_ROUTE_POINT_UP_IN_ARRAY: (state, action) => _moveRoutePointUpInArray(state, action),
 // Adding a new route point
   SET_NEW_ROUTE_DIALOG_OPEN: (state, action) => updateObject(state, {newDialogOpen: action.payload}),
   UPDATE_NEW_ROUTE_POINT_FORM: (state, action) => _updateNewRoutePointFormState(state, action),
@@ -39,7 +40,9 @@ const routeReducer = handleActions({
   HIDE_NEW_ROUTE_POINT_SNACKBAR: (state, action) => updateObject(state, {showNewRoutePointSnackBar: false}),
   NEW_ROUTE_POINT_ON_MAP_CLICK: (state, action) => _newRoutePointMapClick(state, action),
 // Other
-  HOVER_ADMIN_ROUTE_POINT: (state, action) => updateObject(state, {hoveredID: action.payload})
+  HOVER_ADMIN_ROUTE_POINT: (state, action) => updateObject(state, {hoveredID: action.payload}),
+// Map changes
+  ROUTE_ON_MAP_CHILD_CLICK: (state, action) => _routeOnMapChildClick(state, action)
 }, initialState)
 
 const routeMapReducer = mapReducerCreator('ROUTE')
@@ -92,6 +95,23 @@ const _newRoutePointMapClick = (state, action) => {
   return updateObject(state, {newRoutePointFormState: nextNewRoutePointFormState})
 }
 
+const _moveRoutePointUpInArray = (state, action) => {
+  const { _id, up } = action.payload
+  const key = state.route.findIndex((val) => val._id === _id)
+  const routeStateAdjusted = moveElementInArray(state.route, _id, up ? key - 1 : key + 1)
+  const nextRouteState = routeStateAdjusted.map((value, key) => Object.assign({}, value, {number: key}))
+  return updateObject(state, { route: nextRouteState, routeEdits: nextRouteState })
+}
+
+const _routeOnMapChildClick = (state, action) => {
+  const { _id, type, mouse, move } = action.payload
+  if (!move || type !== 'route') {
+    return state
+  }
+  const nextRouteState = addOrUpdateItemInArray(state.route, _id, {_id, center: { lat: mouse.lat, lng: mouse.lng }})
+  return updateObject(state, { route: nextRouteState })
+}
+
 // Selectors
 export const getRoutes = state => {
   const { route, routeEdits } = state.admin.route.routeRoot
@@ -122,5 +142,8 @@ export const getMapRouteLines = (state) => {
 // Route Map
 export const getRouteMapLoaded = state => mapImports.selectors.getMapLoaded(state.admin.route.routeMap)
 export const getRouteMap = state => mapImports.selectors.getMap(state.admin.route.routeMap)
+export const getRouteMapZoom = state => mapImports.selectors.getZoom(state.admin.route.routeMap)
+export const getRouteMapBounds = state => mapImports.selectors.getBounds(state.admin.route.routeMap)
+export const getRouteMapDraggable = state => mapImports.selectors.getDraggable(state.admin.route.routeMap)
 
 // New Route Point Map

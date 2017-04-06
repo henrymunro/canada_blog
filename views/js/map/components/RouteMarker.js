@@ -37,10 +37,14 @@ export default class RouteMarker extends React.Component {
   }
 }
 
+RouteMarker.defaultProps = {
+  type: 'route'
+}
+
 RouteMarker.propTypes = {
   name: React.PropTypes.string.isRequired,
   lat: React.PropTypes.number.isRequired,
   lng: React.PropTypes.number.isRequired,
-  hovered: React.PropTypes.bool
-
+  hovered: React.PropTypes.bool,
+  type: React.PropTypes.string
 }

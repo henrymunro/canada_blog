@@ -19,7 +19,7 @@ export default class RouteTableRow extends React.Component {
     return <TableRow
       onMouseEnter={() => this.props.onMouseEnter(_id)}
       onMouseLeave={() => this.props.onMouseEnter(undefined)}>
-      <TableRowColumn>{number}</TableRowColumn>
+      <TableRowColumn><div onClick={() => this.props.movePointUpInArray({_id, up: true})}>{number}</div></TableRowColumn>
       <TableRowColumn>{name}</TableRowColumn>
       <TableRowColumn>
         <Checkbox
@@ -38,6 +38,7 @@ RouteTableRow.propTypes = {
   done: React.PropTypes.bool.isRequired,
   doneSelectDisabled: React.PropTypes.bool.isRequired,
   onDelete: React.PropTypes.func.isRequired,
-  onMouseEnter: React.PropTypes.func.isRequired
+  onMouseEnter: React.PropTypes.func.isRequired,
+  movePointUpInArray: React.PropTypes.func.isRequired
 
 }

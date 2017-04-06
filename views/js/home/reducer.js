@@ -27,4 +27,7 @@ export const getRoute = (state) => (state.home.homeRoot.route)
 /* ############### Map Selectors ################### */
 export const getMap = (state) => mapImports.selectors.getMap(state.home.homeMap)
 export const getMapLoaded = (state) => mapImports.selectors.getMapLoaded(state.home.homeMap)
+export const getMapDraggable = (state) => mapImports.selectors.getDraggable(state.home.homeMap)
 export const getChildClickCenter = (state) => mapImports.selectors.getChildClickCenter(state.home.homeMap)
+export const getZoom = (state) => mapImports.selectors.getZoom(state.home.homeMap)
+export const getMapBounds = (state) => mapImports.selectors.getBounds(state.home.homeMap)

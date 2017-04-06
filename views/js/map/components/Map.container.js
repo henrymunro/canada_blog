@@ -32,14 +32,18 @@ export default class MapComponent extends React.Component {
       // })
     }
 
-    const { onClick, onChange, onGoogleApiLoaded } = this.props
+    const { onClick, onChange, onGoogleApiLoaded, onChildMouseDown, onChildMouseUp, onChildMouseMove } = this.props
     return <GoogleMapReact
       bootstrapURLKeys={{
         key: this.props.APIKey
       }}
+      draggable={this.props.draggable}
       defaultCenter={this.props.defaultCenter || this.props.mapDefaults.center}
       defaultZoom={this.props.defaultCenter || this.props.mapDefaults.zoom}
       center={this.props.center}
+      onChildMouseDown={onChildMouseDown}
+      onChildMouseUp={onChildMouseUp}
+      onChildMouseMove={onChildMouseMove}
       onChange={onChange}
       onClick={onClick}
       options={{
@@ -52,10 +56,18 @@ export default class MapComponent extends React.Component {
   }
 }
 
+MapComponent.defaultProps = {
+  draggable: true
+}
+
 MapComponent.propTypes = {
   onClick: React.PropTypes.func,
   onChange: React.PropTypes.func,
+  onChildMouseDown: React.PropTypes.func,
+  onChildMouseUp: React.PropTypes.func,
+  onChildMouseMove: React.PropTypes.func,
   onGoogleApiLoaded: React.PropTypes.func,
   mapLoaded: React.PropTypes.bool,
-  center: React.PropTypes.object
+  center: React.PropTypes.object,
+  draggable: React.PropTypes.bool
 }

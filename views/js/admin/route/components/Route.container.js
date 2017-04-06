@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import NewRoutePoint from './NewRoutePoint.container'
 import RouteTable from './RouteTable'
 import RouteTableRow from './RouteTableRow'
-import { MapComponent, RouteMarker, DayMarker } from '../../../map'
+import { MapComponent, RouteMarker, DayMarker, Svg } from '../../../map'
 import { mapRouteTableRows } from '../model'
 
 import blogEntriesImports, { actions as blogEntriesActions} from '../../blogEntries'
@@ -22,11 +22,15 @@ import actions from '../actions'
     newRoutePointFormState: selectors.getNewRoutePointFormState(store),
     showNewRoutePointSnackbar: selectors.getShowNewRoutePointSnackBar(store),
     mapRouteLines: selectors.getMapRouteLines(store),
+    blog: blogEntriesImports.selectors.getDayObjects(store),
+    hoveredID: selectors.getHoveredID(store),
+    routeEdits: selectors.getRouteEdits(store),
+    // Map state
     map: selectors.getRouteMap(store),
     mapLoaded: selectors.getRouteMapLoaded(store),
-    dayObjects: blogEntriesImports.selectors.getDayObjects(store),
-    hoveredID: selectors.getHoveredID(store),
-    routeEdits: selectors.getRouteEdits(store)
+    zoom: selectors.getRouteMapZoom(store),
+    mapBounds: selectors.getRouteMapBounds(store),
+    mapDraggable: selectors.getRouteMapDraggable(store)
 
   }
 }, Object.assign({}, actions, blogEntriesActions))
@@ -38,26 +42,34 @@ export default class Route extends React.Component {
     this.props.getAdminBlogEntries()
   }
 
-  componentWillUpdate (nextProps, nextState) {
-    if (nextProps.mapLoaded && !this.props.mapLoaded) {
-      this.onMapLoaded(nextProps.map, nextProps.mapRouteLines)
-    }
-  }
-
   editRoutePoint (id, key, value) {
     this.props.editRoutePoint({_id: id, [key]: value})
   }
 
-  onMapLoaded (map, mapRouteLines) {
-    map.data.forEach((feature) => {
-      map.data.remove(feature)
+  plotRoutePoints (route) {
+    return route.map((point) => {
+      return !point.done && <RouteMarker
+        lat={point.center.lat}
+        lng={point.center.lng}
+        name={point.name}
+        // hovered={this.props.hoveredID === point._id}
+        key={point._id} />
     })
-    map.data.addGeoJson(mapRouteLines)
+  }
+
+  plotBlogPoints (blog) {
+    return blog.map((day, key) => {
+      const { lat, lng } = day.center || {}
+      return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} onClick={() => this.props.homeOnMapSpecificChildClick({lat, lng})} />
+    })
   }
 
   render () {
-    const routeTableRows = mapRouteTableRows(this.props.route, RouteTableRow, this.editRoutePoint.bind(this), this.props.deleteRouteEntry, this.props.hoverAdminRoutePoint)
-    const markers = this.props.route.map((point) => { return !point.done && <RouteMarker lat={point.center.lat} lng={point.center.lng} name={point.name} key={point._id} hovered={this.props.hoveredID === point._id} /> })
+    const routeTableRows = mapRouteTableRows(this.props.route, RouteTableRow, this.editRoutePoint.bind(this), this.props.deleteRouteEntry, this.props.hoverAdminRoutePoint, this.props.moveRoutePointUpInArray)
+    // const markers = this.props.route.map((point) => { return !point.done && <RouteMarker lat={point.center.lat} lng={point.center.lng} name={point.name} key={point._id} hovered={this.props.hoveredID === point._id} /> })
+
+    const { blog, route } = this.props
+    const svgLinePoints = [...blog, ...route].map((point) => point.center).filter((point) => point)
 
     return <div>
       <NewRoutePoint />
@@ -73,17 +85,19 @@ export default class Route extends React.Component {
             <MapComponent
               onGoogleApiLoaded={this.props.routeOnGoogleApiLoaded}
               onChange={this.props.routeOnMapChange}
+              draggable={this.props.mapDraggable}
               onClick={this.props.routeOnMapClick}
+              onChildMouseDown={(childKey, childProps, mouse) => this.props.routeOnMapChildClick({childKey, childProps, mouse, event: 'mouseDown'})}
+              onChildMouseUp={(childKey, childProps, mouse) => this.props.routeOnMapChildClick({childKey, childProps, mouse, event: 'mouseUp'})}
+              onChildMouseMove={(childKey, childProps, mouse) => this.props.routeOnMapChildClick({childKey, childProps, mouse, event: 'mouseMove'})}
               // onMapLoad={this.props.onRouteAdminMapLoad}
               // mapLoaded={this.props.mapLoaded}
               // onMapLoaded={this.onMapLoaded.bind(this)}
                 >
-              {markers}
-              {this.props.dayObjects.map((day, key) => {
-                const { lat, lng } = day.center || {}
-                return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} />
-              })
-              }
+              {this.plotBlogPoints(this.props.blog)}
+              {this.plotRoutePoints(this.props.route)}
+              {(svgLinePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+
             </MapComponent>
           </div>
         </div>
@@ -91,3 +105,9 @@ export default class Route extends React.Component {
     </div>
   }
 }
+              // {markers}
+              // {this.props.dayObjects.map((day, key) => {
+              //   const { lat, lng } = day.center || {}
+              //   return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} />
+              // })
+              // }

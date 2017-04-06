@@ -30,7 +30,7 @@ export default class NewRoutePoint extends React.Component {
 
   saveNewRoutePoint () {
     this.props.saveNewRoutePoint(this.props.newRoutePointFormState)
-        .then(() => this.props.getRoute())
+        .then(() => this.props.getRouteAdmin())
   }
 
   render () {

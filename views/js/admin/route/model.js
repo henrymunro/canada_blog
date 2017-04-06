@@ -7,12 +7,17 @@ import React from 'react'
  * @param  {React} RouteTableRow
  * @return {Array}               Array of React components
  */
-export const mapRouteTableRows = (route, RouteTableRow, onChange, onDelete, onMouseEnter) => {
+export const mapRouteTableRows = (route, RouteTableRow, onChange, onDelete, onMouseEnter, movePointUpInArray) => {
   let lastDoneValue = true
   return route.map(day => {
     const doneSelectDisabled = !lastDoneValue
     lastDoneValue = day.done
     const dayProps = Object.assign({}, day, { doneSelectDisabled })
-    return <RouteTableRow {...dayProps} key={day._id} onChange={(key, value) => onChange(day._id, key, value)} onDelete={onDelete} onMouseEnter={onMouseEnter} />
+    return <RouteTableRow {...dayProps}
+      key={day._id}
+      onChange={(key, value) => onChange(day._id, key, value)}
+      onDelete={onDelete}
+      onMouseEnter={onMouseEnter}
+      movePointUpInArray={movePointUpInArray} />
   })
 }

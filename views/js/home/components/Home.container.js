@@ -4,12 +4,15 @@ import { connect } from 'react-redux'
 import * as selectors from '../reducer'
 import actions from '../actions'
 
-import {MapComponent, RouteMarker, DayMarker} from '../../map'
+import {MapComponent, RouteMarker, DayMarker, Svg} from '../../map'
 
 @connect((store) => {
   return {
     map: selectors.getMap(store),
     mapLoaded: selectors.getMapLoaded(store),
+    mapDraggable: selectors.getMapDraggable(store),
+    zoom: selectors.getZoom(store),
+    mapBounds: selectors.getMapBounds(store),
     blog: selectors.getBlog(store),
     route: selectors.getRoute(store),
     mapCenter: selectors.getChildClickCenter(store)
@@ -35,7 +38,7 @@ export default class Home extends React.Component {
   plotBlogPoints (blog) {
     return blog.map((day, key) => {
       const { lat, lng } = day.center || {}
-      return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} onClick={() => this.props.homeOnMapChildClick({lat, lng})} />
+      return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} onClick={() => this.props.homeOnMapSpecificChildClick({lat, lng})} />
     })
   }
 
@@ -49,14 +52,21 @@ export default class Home extends React.Component {
       top: 0,
       right: 0
     }
+    const { blog, route } = this.props
+    const svgLinePoints = [...blog, ...route].map((point) => point.center).filter((point) => point)
+    // console.log('SVG POINT: ', svgLinePoints)
     return <div style={{height: '100vh', width: '100vw'}}>
       <MapComponent
         center={this.props.mapCenter}
+        draggable={this.props.mapDraggable}
+        onChange={this.props.homeOnMapChange}
+        onClick={this.props.homeOnMapClick}
         onGoogleApiLoaded={this.props.homeOnGoogleApiLoaded} >
         {this.plotBlogPoints(this.props.blog)}
         {this.plotRoutePoints(this.props.route)}
+        {svgLinePoints.length > 0 && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
       </MapComponent>
-      <div style={divStyle}>
+      <div style={divStyle} >
         <h4>Here</h4>
       </div>
     </div>

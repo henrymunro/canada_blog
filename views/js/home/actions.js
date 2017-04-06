@@ -10,8 +10,6 @@ const homeActions = createActions({
   [actions.GET_BLOG]: () => webAPI.blog.getBlog(),
   [actions.GET_ROUTE]: () => webAPI.route.getRoute()
 
-// CLient changes
-
 })
 
 export default Object.assign({}, homeMapActions, homeActions)

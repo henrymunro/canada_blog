@@ -1,7 +1,7 @@
 import React from 'react'
 import isEqual from 'lodash.isequal'
 
-export default class RouteMarker extends React.Component {
+export default class DayMarker extends React.Component {
 
   shouldComponentUpdate (nextProps, nextState) {
     return !isEqual(this.props, nextProps)
@@ -37,10 +37,15 @@ export default class RouteMarker extends React.Component {
   }
 }
 
-RouteMarker.propTypes = {
+DayMarker.defaultProps = {
+  type: 'blog'
+}
+
+DayMarker.propTypes = {
   name: React.PropTypes.string.isRequired,
   lat: React.PropTypes.number.isRequired,
   lng: React.PropTypes.number.isRequired,
-  onClick: React.PropTypes.func
+  onClick: React.PropTypes.func,
+  type: React.PropTypes.string
 
 }
