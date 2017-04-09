@@ -8,7 +8,8 @@ module.exports = {
   context: path.join(__dirname, 'views'),
   devtool: debug ? 'inline-sourcemap' : null,
   entry: {
-    app: path.join('js/', 'appEntry.js')
+    app: path.join('js/', 'appEntry.js'),
+    admin: path.join('js/', 'adminEntry.js')
   },
   module: {
     loaders: [

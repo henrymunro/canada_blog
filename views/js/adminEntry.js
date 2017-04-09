@@ -14,9 +14,14 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import Perf from 'react-addons-perf'
 window.Perf = Perf
 
+// import Layout from './components/Layout'
+import { AdminHome } from './admin/adminHome'
+import { NewBlogEntry } from './admin/newBlogEntry'
+import { BlogEntries } from './admin/blogEntries'
+import { RouteComponent } from './admin/route'
 import { Blog } from './blog'
 import { Home } from './home'
-import store from './appStore'
+import store from './adminStore'
 
 injectTapEventPlugin()
 
@@ -27,10 +32,13 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Router history={history}>
-      <Route component={Home}>
-        <Route path='/' component={Home} />
-        <Route path='blog' component={Blog} />
-        <Route path='home' component={Home} />
+      <Route component={AdminHome}>
+        <Route path='/admin' component={Home} />
+        <Route path='/admin/newBlogEntry' component={NewBlogEntry} />
+        <Route path='/admin/route' component={RouteComponent} />
+        <Route path='/admin/blogEntries' component={BlogEntries} />
+        <Route path='/admin/blog' component={Blog} />
+        <Route path='/admin/home' component={Home} />
       </Route>
     </Router>
   </MuiThemeProvider>

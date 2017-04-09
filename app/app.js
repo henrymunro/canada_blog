@@ -33,6 +33,9 @@ require('./logger').HTTPRequestLogger(app)
 
 // Loads Routes
 require('./router/index')(app)
+app.get('/admin*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/../build/admin.html'))
+})
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, '/../build/index.html'))
 })
