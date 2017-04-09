@@ -25,6 +25,7 @@ import actions from '../actions'
     blog: blogEntriesImports.selectors.getDayObjects(store),
     hoveredID: selectors.getHoveredID(store),
     routeEdits: selectors.getRouteEdits(store),
+    blogEdits: blogEntriesImports.selectors.getDayObjectsEdits(store),
     // Map state
     map: selectors.getRouteMap(store),
     mapLoaded: selectors.getRouteMapLoaded(store),
@@ -77,7 +78,7 @@ export default class Route extends React.Component {
   plotBlogPoints (blog) {
     return blog.map((day, key) => {
       const { lat, lng } = day.center || {}
-      return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} onClick={() => this.props.homeOnMapSpecificChildClick({lat, lng})} />
+      return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} />
     })
   }
 
@@ -99,6 +100,7 @@ export default class Route extends React.Component {
             {routeTableRows}
           </RouteTable>
           {this.props.routeEdits.length > 0 && <RaisedButton label='SAVE' onClick={() => this.props.saveRouteEdits(this.props.routeEdits)} />}
+          {this.props.blogEdits.length > 0 && <RaisedButton label='SAVE BLOG' onClick={() => this.props.saveAdminBlogEntryEdits(this.props.blogEdits)} />}
         </div>
         <div className='col s6 m6 l6'>
           <div style={{height: '100vh', width: '500px'}}>
@@ -114,9 +116,9 @@ export default class Route extends React.Component {
               // mapLoaded={this.props.mapLoaded}
               // onMapLoaded={this.onMapLoaded.bind(this)}
                 >
-              {this.plotBlogPoints(this.props.blog)}
-              {this.plotRoutePoints(this.props.route)}
-              {this.plotBezierPoints(this.props.route)}
+              {this.plotBlogPoints(blog)}
+              {this.plotRoutePoints(route)}
+              {this.plotBezierPoints([...blog, ...route])}
               {(svgLinePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
 
             </MapComponent>

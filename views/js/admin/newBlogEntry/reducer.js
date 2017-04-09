@@ -9,6 +9,8 @@ const defaultFormState = {
   date: new Date(),
   title: undefined,
   center: {lat: undefined, lng: undefined},
+  bezier0: {lat: undefined, lng: undefined},
+  bezier1: {lat: undefined, lng: undefined},
   summary: undefined,
   distanceKm: 0,
   blog: undefined,
@@ -100,8 +102,11 @@ const _saveNewPhotosEdits = (state, action) => {
 }
 
 const _newBlogEntryMapClick = (state, action) => {
-  const center = {lat: action.payload.lat, lng: action.payload.lng}
-  const nextFormState = updateObject(state.formState, {center})
+  const { lat, lng } = action.payload
+  const center = { lat, lng }
+  const bezier0 = {lat: lat + 1, lng: lng - 1}
+  const bezier1 = {lat: lat + 2, lng: lng - 2}
+  const nextFormState = updateObject(state.formState, {center, bezier0, bezier1})
   return updateObject(state, { formState: nextFormState })
 }
 

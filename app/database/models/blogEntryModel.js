@@ -12,6 +12,8 @@ module.exports = mongoose.model('BlogEntry', new Schema({
   title: { type: String, required: true },
   summary: { type: String, required: true },
   center: { type: Object },
+  bezier0: { type: Object, required: true },
+  bezier1: { type: Object, require: true },
   distanceKm: { type: Number, default: 0 },
   blog: { type: Array, required: false },
   photos: { type: Array, required: false },

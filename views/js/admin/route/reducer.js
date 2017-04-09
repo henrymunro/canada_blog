@@ -127,6 +127,10 @@ const _routeOnMapChildClick = (state, action) => {
     const bezierNo = _id.substr(-1)
     // Trim down ID of passed bezier number
     const actualId = _id.slice(0, -2)
+    // Check to make sure this is a route bezier else return no changes
+    const thisElement = state.route.filter((elm) => elm._id === actualId).length > 0
+    if (!thisElement) return state
+
     const updates = {_id: actualId, [`bezier${bezierNo}`]: { lat, lng }}
     nextRouteEditState = updateOrAddToEditArray(state.route, state.routeEdits, updates)
   }

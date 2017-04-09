@@ -8,6 +8,9 @@ module.exports = function (apiRoute) {
 .get(blogEntryRoutes.getEntries)
 .post(blogEntryRoutes.postEntries)
 
+  apiRoute.route(routeURI + '/multiple')
+.put(blogEntryRoutes.updateMultipleEntries)
+
   apiRoute.route(routeURI + '/:id')
 .get(blogEntryRoutes.getEntryByID)
 .delete(blogEntryRoutes.deleteEntry)
