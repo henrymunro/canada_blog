@@ -18,7 +18,9 @@ export default class AdminHome extends React.Component {
   render () {
     return <div>
       <NavBar />
-      {this.props.children}
+      <div style={{marginTop: '60px'}}>
+        {this.props.children}
+      </div>
     </div>
   }
 }

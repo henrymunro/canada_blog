@@ -27,18 +27,16 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000
 }))
 app.use(express.static(path.join(__dirname, '/../build')))
+app.use('/admin', express.static(path.join(__dirname, '/../build')))
 
 // Pull in HTTP Logging
 require('./logger').HTTPRequestLogger(app)
 
 // Loads Routes
 require('./router/index')(app)
-app.get('/admin*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../build/admin.html'))
-})
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../build/index.html'))
-})
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, '/../build/admin.html')))
+app.get('/admin/*', (req, res) => res.sendFile(path.join(__dirname, '/../build/admin.html')))
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../build/index.html')))
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

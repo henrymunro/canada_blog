@@ -10,7 +10,7 @@ export default class NavBar extends React.Component {
   // }
 
   render () {
-    return <div style={{position: 'fixedd', zIndex: 10, width: '100vw'}}>
+    return <div style={{position: 'fixed', zIndex: 10, width: '100vw', top: 0}}>
       <Toolbar>
         <ToolbarGroup>
           <ToolbarTitle text='Options' />
