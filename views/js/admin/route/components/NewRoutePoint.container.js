@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 // Pull in presnentational compontents
 import AddNewRoutePointDialog from './AddNewRoutePointDialog'
 import AddNewRoutePointForm from './AddNewRoutePointForm'
-import { MapComponent, RouteMarker } from '../../../map'
+import { MapComponent, RouteMarker, BezierMarker } from '../../../map'
 
 import * as selectors from '../reducer'
 import actions from '../actions'
@@ -13,7 +13,8 @@ import actions from '../actions'
   return {
     newDialogOpen: selectors.getNewRouteDialogOpen(store),
     newRoutePointFormState: selectors.getNewRoutePointFormState(store),
-    showNewRoutePointSnackbar: selectors.getShowNewRoutePointSnackBar(store)
+    showNewRoutePointSnackbar: selectors.getShowNewRoutePointSnackBar(store),
+    nextRouteNumber: selectors.getNextRouteNumber(store)
 
   }
 }, actions)
@@ -35,6 +36,7 @@ export default class NewRoutePoint extends React.Component {
 
   render () {
     const { lat, lng } = this.props.newRoutePointFormState.center
+    const { bezier0, bezier1 } = this.props.newRoutePointFormState
     return <div>
       <AddNewRoutePointDialog
         newDialogOpen={this.props.newDialogOpen}
@@ -46,12 +48,15 @@ export default class NewRoutePoint extends React.Component {
           >
         <AddNewRoutePointForm
           newRoutePointFormState={this.props.newRoutePointFormState}
+          nextRouteNumber={this.props.nextRouteNumber}
           changeHandler={this.props.updateNewRoutePointForm}>
           <MapComponent
             onGoogleApiLoaded={this.props.newRoutePointOnGoogleApiLoaded}
             onChange={this.props.newRoutePointOnMapChange}
             onClick={this.props.newRoutePointOnMapClick}>
             {lat && <RouteMarker lat={lat} lng={lng} name='new' />}
+            {lat && <BezierMarker lat={bezier0.lat} lng={bezier0.lng} name='0' />}
+            {lat && <BezierMarker lat={bezier1.lat} lng={bezier1.lng} name='1' />}
           </MapComponent>
         </AddNewRoutePointForm>
       </AddNewRoutePointDialog>

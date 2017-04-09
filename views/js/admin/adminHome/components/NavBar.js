@@ -18,7 +18,6 @@ export default class NavBar extends React.Component {
           <Link to='/route'><RaisedButton label='Route' primary /></Link>
           <Link to='/newBlogEntry'><RaisedButton label='New blog entry' primary /></Link>
           <Link to='/blogEntries'><RaisedButton label='Blog entries' primary /></Link>
-          <Link to='/map'><RaisedButton label='Map' primary /></Link>
           <Link to='/blog'><RaisedButton label='Blog' primary /></Link>
           <Link to='/home'><RaisedButton label='Home' primary /></Link>
         </ToolbarGroup>

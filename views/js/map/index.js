@@ -9,6 +9,7 @@ export default { actionTypes, selectors, utilities }
 // components
 export {default as MapComponent} from './components/Map.container'
 export {default as DayMarker} from './components/DayMarker'
+export {default as BezierMarker} from './components/BezierMarker'
 export {default as RouteMarker} from './components/RouteMarker'
 export {default as Svg} from './components/Svg'
 

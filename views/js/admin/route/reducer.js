@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import { combineReducers } from 'redux'
-import { updateObject, removeElementFromArray, updateOrAddToEditArray, addOrUpdateItemInArray, moveElementInArray } from '../../reducers/reducerUtilities'
+import { updateObject, removeElementFromArray, updateOrAddToEditArray, moveElementInArray } from '../../reducers/reducerUtilities'
 
 import mapImports, { mapReducerCreator } from '../../map'
 const { turnRoutePointsToLines } = mapImports.utilities
@@ -9,6 +9,8 @@ const defaultNewRoutePointFormState = {
   number: 1,
   name: undefined,
   center: {lat: undefined, lng: undefined},
+  bezier0: {lat: undefined, lng: undefined},
+  bezier1: {lat: undefined, lng: undefined},
   done: false
 }
 
@@ -90,8 +92,11 @@ const _editRoutePoint = (state, action) => {
 }
 
 const _newRoutePointMapClick = (state, action) => {
-  const newCenter = {lat: action.payload.lat, lng: action.payload.lng}
-  const nextNewRoutePointFormState = updateObject(state.newRoutePointFormState, { center: newCenter })
+  const { lat, lng } = action.payload
+  const newCenter = {lat, lng}
+  const bezier0 = {lat: lat + 1, lng: lng - 1}
+  const bezier1 = {lat: lat + 2, lng: lng - 2}
+  const nextNewRoutePointFormState = updateObject(state.newRoutePointFormState, { center: newCenter, bezier0, bezier1 })
   return updateObject(state, {newRoutePointFormState: nextNewRoutePointFormState})
 }
 
@@ -103,13 +108,30 @@ const _moveRoutePointUpInArray = (state, action) => {
   return updateObject(state, { route: nextRouteState, routeEdits: nextRouteState })
 }
 
+// Handles the drag and drop function for the route points and their bezier points
 const _routeOnMapChildClick = (state, action) => {
   const { _id, type, mouse, move } = action.payload
-  if (!move || type !== 'route') {
+  const { lat, lng } = mouse
+  if (!move || !(type === 'route' || type === 'bezier')) {
     return state
   }
-  const nextRouteState = addOrUpdateItemInArray(state.route, _id, {_id, center: { lat: mouse.lat, lng: mouse.lng }})
-  return updateObject(state, { route: nextRouteState })
+  // deal with route center updates
+  let nextRouteEditState
+  if (type === 'route') {
+    const updates = {_id, center: { lat, lng }}
+    nextRouteEditState = updateOrAddToEditArray(state.route, state.routeEdits, updates)
+  }
+  // deal with bezier updates
+  if (type === 'bezier') {
+    // pull out which of the two bezier points has been clicked (passed in the ID field as _0 or _1)
+    const bezierNo = _id.substr(-1)
+    // Trim down ID of passed bezier number
+    const actualId = _id.slice(0, -2)
+    const updates = {_id: actualId, [`bezier${bezierNo}`]: { lat, lng }}
+    nextRouteEditState = updateOrAddToEditArray(state.route, state.routeEdits, updates)
+  }
+
+  return updateObject(state, { routeEdits: nextRouteEditState })
 }
 
 // Selectors
@@ -122,6 +144,8 @@ export const getRoutes = state => {
 }
 
 export const getRouteEdits = state => (state.admin.route.routeRoot.routeEdits)
+
+export const getNextRouteNumber = state => (getRoutes(state).length)
 
 export const getHoveredID = state => (state.admin.route.routeRoot.hoveredID)
 

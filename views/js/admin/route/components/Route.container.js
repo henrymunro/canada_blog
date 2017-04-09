@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import NewRoutePoint from './NewRoutePoint.container'
 import RouteTable from './RouteTable'
 import RouteTableRow from './RouteTableRow'
-import { MapComponent, RouteMarker, DayMarker, Svg } from '../../../map'
+import { MapComponent, RouteMarker, DayMarker, Svg, BezierMarker } from '../../../map'
 import { mapRouteTableRows } from '../model'
 
 import blogEntriesImports, { actions as blogEntriesActions} from '../../blogEntries'
@@ -52,9 +52,26 @@ export default class Route extends React.Component {
         lat={point.center.lat}
         lng={point.center.lng}
         name={point.name}
-        // hovered={this.props.hoveredID === point._id}
+        hovered={this.props.hoveredID === point._id}
         key={point._id} />
     })
+  }
+
+  plotBezierPoints (route) {
+    const plotBezier = (bezierKey) => {
+      return route.map((point, key) => {
+        const hide = point.done || key === 0
+        return !hide && <BezierMarker
+          lat={point[`bezier${bezierKey}`].lat}
+          lng={point[`bezier${bezierKey}`].lng}
+          name={String(bezierKey)}
+          hovered={this.props.hoveredID === point._id}
+          key={`${point._id}_${bezierKey}`} />
+      })
+    }
+    const bezier0 = plotBezier(0)
+    const bezier1 = plotBezier(1)
+    return [...bezier0, ...bezier1].filter(point => point)
   }
 
   plotBlogPoints (blog) {
@@ -69,7 +86,10 @@ export default class Route extends React.Component {
     // const markers = this.props.route.map((point) => { return !point.done && <RouteMarker lat={point.center.lat} lng={point.center.lng} name={point.name} key={point._id} hovered={this.props.hoveredID === point._id} /> })
 
     const { blog, route } = this.props
-    const svgLinePoints = [...blog, ...route].map((point) => point.center).filter((point) => point)
+    const svgLinePoints = [...blog, ...route].map((point) => {
+      const { center, bezier0, bezier1 } = point
+      return !point.done && { center, bezier0, bezier1 }
+    }).filter((point) => point.center)
 
     return <div>
       <NewRoutePoint />
@@ -96,6 +116,7 @@ export default class Route extends React.Component {
                 >
               {this.plotBlogPoints(this.props.blog)}
               {this.plotRoutePoints(this.props.route)}
+              {this.plotBezierPoints(this.props.route)}
               {(svgLinePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
 
             </MapComponent>

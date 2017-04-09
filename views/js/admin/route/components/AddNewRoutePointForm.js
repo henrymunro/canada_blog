@@ -14,7 +14,7 @@ export default class AddNewRoutePointForm extends React.Component {
       <div className='col s6 m6 l6'>
         <div className='row'>
           <div className='col'>
-            <TextField floatingLabelText='Number' defaultValue={this.props.newRoutePointFormState.number} onChange={(e, value) => this.props.changeHandler('number', Number(value), e)} />
+            <TextField floatingLabelText='Number' defaultValue={this.props.nextRouteNumber} onChange={(e, value) => this.props.changeHandler('number', Number(value), e)} />
           </div>
           <div className='col'>
             <TextField floatingLabelText='Name' defaultValue={this.props.newRoutePointFormState.name} onChange={(e, value) => this.props.changeHandler('name', value, e)} />
@@ -42,5 +42,6 @@ AddNewRoutePointForm.propTypes = {
     name: React.PropTypes.string,
     center: React.PropTypes.object,
     done: React.PropTypes.bool
-  })
+  }),
+  nextRouteNumber: React.PropTypes.number.isRequired
 }

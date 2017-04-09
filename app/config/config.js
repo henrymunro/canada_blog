@@ -17,5 +17,5 @@ if (['production', 'staging', 'development', 'test', 'test_production'].indexOf(
   config = environment
 }
 
-module.exports = require(path.join(__dirname, `./${config}.canada_blog.config.json`))
+module.exports = require(path.join(__dirname, `../../config/${config}.canada_blog.config.json`))
 

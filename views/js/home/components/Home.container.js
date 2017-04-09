@@ -53,7 +53,10 @@ export default class Home extends React.Component {
       right: 0
     }
     const { blog, route } = this.props
-    const svgLinePoints = [...blog, ...route].map((point) => point.center).filter((point) => point)
+    const svgLinePoints = [...blog, ...route].map((point) => {
+      const { center, bezier0, bezier1 } = point
+      return { center, bezier0, bezier1 }
+    }).filter((point) => point.center)
     // console.log('SVG POINT: ', svgLinePoints)
     return <div style={{height: '100vh', width: '100vw'}}>
       <MapComponent
@@ -64,7 +67,7 @@ export default class Home extends React.Component {
         onGoogleApiLoaded={this.props.homeOnGoogleApiLoaded} >
         {this.plotBlogPoints(this.props.blog)}
         {this.plotRoutePoints(this.props.route)}
-        {svgLinePoints.length > 0 && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+        {(svgLinePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
       </MapComponent>
       <div style={divStyle} >
         <h4>Here</h4>
