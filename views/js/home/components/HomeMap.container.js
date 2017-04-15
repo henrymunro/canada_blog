@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as selectors from '../reducer'
 import actions from '../actions'
 
-import {MapComponent, RouteMarker, DayMarker, Svg} from '../../map'
+import {MapComponent, RouteMarker, DayMarker, Svg, Path} from '../../map'
 
 @connect((store) => {
   return {
@@ -22,7 +22,6 @@ import {MapComponent, RouteMarker, DayMarker, Svg} from '../../map'
 export default class Home extends React.Component {
 
   plotRoutePoints (route) {
-    console.log('ROUTEE: ', route)
     return route.map((point) => {
       const { lat, lng } = point.center || {}
       return lat && <RouteMarker
@@ -40,6 +39,13 @@ export default class Home extends React.Component {
     })
   }
 
+  getPathArray (array) {
+    return array.map(point => {
+      const { center, bezier0, bezier1 } = point || {}
+      return { center, bezier0, bezier1 }
+    }).filter((point) => point.center)
+  }
+
   render () {
     const divStyle = {
       height: '200px',
@@ -51,17 +57,12 @@ export default class Home extends React.Component {
       right: 0
     }
     const { blog, route } = this.props
-    const svgLineBlogPoints = blog.map((point) => {
-      const { center, bezier0, bezier1 } = point
-      return { center, bezier0, bezier1 }
-    }).filter((point) => point.center)
 
-    console.log('OUHS: ', svgLineBlogPoints)
+    const svgLineBlogPoints = this.getPathArray(blog)
 
-    const svgLineRoutePoints = [blog[blog.length - 1], ...route].map((point) => {
-      const { center, bezier0, bezier1 } = point || {}
-      return { center, bezier0, bezier1 }
-    }).filter((point) => point.center)
+    console.log('OADAUHS: ', svgLineBlogPoints, (svgLineBlogPoints.length > 0 && this.props.mapLoaded))
+
+    const svgLineRoutePoints = this.getPathArray([blog[blog.length - 1], ...route])
 
     // console.log('SVG POINT: ', svgLinePoints)
     return <div>
@@ -74,8 +75,10 @@ export default class Home extends React.Component {
           onGoogleApiLoaded={this.props.homeOnGoogleApiLoaded} >
           {this.plotBlogPoints(this.props.blog)}
           {this.plotRoutePoints(this.props.route)}
-          {(svgLineRoutePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLineRoutePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
-          {(svgLineBlogPoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLineBlogPoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+          <Svg>
+            {(svgLineRoutePoints.length > 0 && this.props.mapLoaded) && <Path route coords={svgLineRoutePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+            {(svgLineBlogPoints.length > 0 && this.props.mapLoaded) && <Path coords={svgLineBlogPoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+          </Svg>
         </MapComponent>
         <div style={divStyle} >
           <h4>Here</h4>
