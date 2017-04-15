@@ -42,3 +42,5 @@ build/admin.min.js
 
 #dev config
 .env
+
+build/S3 Management Console_files*
