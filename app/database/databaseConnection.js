@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 const { logger, logError } = require('../logger')
 const loggerModule = 'databaseConnection.js'
-const config = require('../config/config').database
+const config = require('../config').database
 
 logger.info('Loading in databaseConnection', {loggerModule, startUp: true})
 
-mongoose.connect(config.URI)
+mongoose.connect(config.URL)
 mongoose.Promise = global.Promise
 
 // Test connection to DB
@@ -14,12 +14,13 @@ const db = mongoose.connection
 // CONNECTION EVENTS
 // When successfully connected
 db.on('connected', function () {
-  logger.info(`Mongoose default connection open to ${config.URI}`, {loggerModule, type: 'database'})
+  logger.info(`Mongoose default connection open to ${config.URL}`, {loggerModule, type: 'database'})
 })
 
 // If the connection throws an error
 db.on('error', (err) => {
   logError(err, 'Error connecting to database', loggerModule)
+  // throw new Error(err)
 })
 
 // When the connection is disconnected

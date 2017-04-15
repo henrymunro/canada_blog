@@ -5,5 +5,6 @@ import * as actionTypes from './actionTypes'
 export default { actions, actionTypes }
 
 export {default as Home} from './components/Home.container.js'
+export {default as HomeContainer} from './components/HomeContainer.container.js'
 export {default as reducer} from './reducer'
 

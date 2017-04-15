@@ -39,9 +39,9 @@ export default class Svg extends React.Component {
         d={points.join(' ')}
         fill='none'
         stroke='black'
-        strokeWidth='6'
+        strokeWidth='4'
         strokeLinecap='round'
-        strokeDasharray='5,10,5' />
+        strokeDasharray={this.props.route && '5,5,5'} />
     </svg>
   }
 }

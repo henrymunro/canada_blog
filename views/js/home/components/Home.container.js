@@ -1,27 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// import * as selectors from '../reducer'
+import * as selectors from '../reducer'
 import actions from '../actions'
 
+import BlogThumb from './BlogThumb'
 import HomeDrawer from './HomeDrawer'
 import HomeMap from './HomeMap.container'
 import NavBar from './NavBar'
 
 @connect((store) => {
   return {
-
+    blog: selectors.getBlog(store)
   }
 }, actions)
 
 export default class Home extends React.Component {
+
+  componentWillMount () {
+    this.props.getBlog()
+    this.props.getRoute()
+  }
 
   render () {
     return <div>
       <HomeMap />
       <div className='row'>
         <div className='col s2 m2 l2' style={{padding: 0}}>
-          <HomeDrawer />
+          <HomeDrawer>
+            {this.props.blog.map((entry, key) => <BlogThumb blog={entry} key={entry._id} />)}
+          </HomeDrawer>
         </div>
         <div className='col s10 m10 l10' style={{padding: 0}}>
           <NavBar />

@@ -10,13 +10,13 @@ export default class NavBar extends React.Component {
   // }
 
   render () {
-    return <div style={{position: 'relative'}}>
+    return <div style={{position: 'fixed'}}>
       <Toolbar>
         <ToolbarGroup>
           <ToolbarTitle text='Options' />
           <ToolbarSeparator />
-          <Link to='/blog'><RaisedButton label='Blogg' primary /></Link>
-          <Link to='/home'><RaisedButton label='Home' primary /></Link>
+          <Link to='blog'><RaisedButton label='Blog' primary /></Link>
+          <Link to='home'><RaisedButton label='Home' primary /></Link>
         </ToolbarGroup>
       </Toolbar>
     </div>

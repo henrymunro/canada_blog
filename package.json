@@ -16,6 +16,9 @@
       "describe",
       "beforeEach",
       "expect"
+    ],
+    "ignore": [
+        "**/build/"
     ]
   },
   "jest": {
@@ -38,6 +41,7 @@
     "fs": "0.0.1-security",
     "helmet": "^2.3.0",
     "hjs": "~0.0.6",
+    "joi": "^10.4.1",
     "jsonwebtoken": "^7.3.0",
     "moment": "^2.15.1",
     "mongoose": "^4.7.7",

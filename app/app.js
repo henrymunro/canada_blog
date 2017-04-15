@@ -12,8 +12,6 @@ const path = require('path')
 const { logger } = require('./logger')
 const loggerModule = 'app.js'
 
-// console.log('NODE ENV: ', process.env.NODE_ENV)
-
 logger.info('STARTING UP CANADA BLOG SERVER APP', {module: loggerModule, startUp: true})
 
 // view engine setup
@@ -27,7 +25,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000
 }))
 app.use(express.static(path.join(__dirname, '/../build')))
-app.use('/admin', express.static(path.join(__dirname, '/../build')))
+app.use('/admin/*', express.static(path.join(__dirname, '/../build')))
 
 // Pull in HTTP Logging
 require('./logger').HTTPRequestLogger(app)

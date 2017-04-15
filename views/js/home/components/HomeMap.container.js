@@ -20,16 +20,14 @@ import {MapComponent, RouteMarker, DayMarker, Svg} from '../../map'
 }, actions)
 
 export default class Home extends React.Component {
-  componentWillMount () {
-    this.props.getBlog()
-    this.props.getRoute()
-  }
 
   plotRoutePoints (route) {
+    console.log('ROUTEE: ', route)
     return route.map((point) => {
-      return <RouteMarker
-        lat={point.center.lat}
-        lng={point.center.lng}
+      const { lat, lng } = point.center || {}
+      return lat && <RouteMarker
+        lat={lat}
+        lng={lng}
         name={point.name}
         key={point._id} />
     })
@@ -53,10 +51,18 @@ export default class Home extends React.Component {
       right: 0
     }
     const { blog, route } = this.props
-    const svgLinePoints = [...blog, ...route].map((point) => {
+    const svgLineBlogPoints = blog.map((point) => {
       const { center, bezier0, bezier1 } = point
       return { center, bezier0, bezier1 }
     }).filter((point) => point.center)
+
+    console.log('OUHS: ', svgLineBlogPoints)
+
+    const svgLineRoutePoints = [blog[blog.length - 1], ...route].map((point) => {
+      const { center, bezier0, bezier1 } = point || {}
+      return { center, bezier0, bezier1 }
+    }).filter((point) => point.center)
+
     // console.log('SVG POINT: ', svgLinePoints)
     return <div>
       <div style={{height: '100vh', width: '100vw', position: 'fixed'}}>
@@ -68,12 +74,14 @@ export default class Home extends React.Component {
           onGoogleApiLoaded={this.props.homeOnGoogleApiLoaded} >
           {this.plotBlogPoints(this.props.blog)}
           {this.plotRoutePoints(this.props.route)}
-          {(svgLinePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+          {(svgLineRoutePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLineRoutePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+          {(svgLineBlogPoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLineBlogPoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
         </MapComponent>
         <div style={divStyle} >
           <h4>Here</h4>
         </div>
       </div>
+      {this.props.children}
     </div>
   }
 }

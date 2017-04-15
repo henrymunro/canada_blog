@@ -5,7 +5,7 @@ const photoRoutes = require('../apiRouteCreator')(PhotoModel)
 const { logger, logError } = require('../../../logger')
 const loggerModule = 'photos.js'
 const env = process.env.NODE_ENV || 'development'
-const { getS3SignedUrl } = require('./functions/s3uploader')
+const { getS3SignedUrl } = require('../../../local_modules/s3uploader')
 
 module.exports = function (apiRoute) {
   apiRoute.route(routeURI)
@@ -24,7 +24,6 @@ const _postPhotos = (req, res) => {
   getS3SignedUrl(req.body.name, req.body.uploadDetails.type)
   .then((result) => {
     resultToSendToClient = result
-    console.log('PHOTO BODDDDYYYY: ', req.body)
     return _logPhotoToDB(req.body, result.url)
   }).then((result) => {
     resultToSendToClient.db = result
