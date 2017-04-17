@@ -20,15 +20,6 @@ export default class RouteMarker extends React.Component {
       height: K_HEIGHT * scale,
       left: -K_WIDTH * scale / 2,
       top: -K_HEIGHT * scale / 2
-
-      // border: '5px solid #f44336',
-      // borderRadius: K_HEIGHT * scale,
-      // backgroundColor: 'white',
-      // textAlign: 'center',
-      // color: '#3f51b5',
-      // fontSize: 16,
-      // fontWeight: 'bold',
-      // padding: 4
     }
   }
 
