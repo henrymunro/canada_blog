@@ -27,13 +27,13 @@ export default class Home extends React.Component {
     const {blog} = this.props
     return <div>
       <HomeMap />
-      <div className='row'>
-        <div className='col s3 m3 l2' style={{padding: 0}} >
+      <div className='row' style={{marginBottom: 0}}>
+        <div className='col s3 m3 l3' style={{padding: 0}} >
           <HomeDrawer>
             {blog.length > 0 && [...blog].reverse().map((entry, key) => <BlogThumb blog={entry} key={entry._id} />)}
           </HomeDrawer>
         </div>
-        <div className='col s9 m9 l10' style={{padding: 0}}>
+        <div className='col s9 m9 l9' style={{padding: 0}}>
           <NavBar currentRoute={this.props.currentRoute} />
         </div>
       </div>

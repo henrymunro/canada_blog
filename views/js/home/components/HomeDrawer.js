@@ -1,4 +1,5 @@
 import React from 'react'
+import color from 'styles/color'
 
 export default class HomeDrawer extends React.Component {
   render () {
@@ -6,7 +7,7 @@ export default class HomeDrawer extends React.Component {
       width: '100%',
       height: '100vh',
       overflowY: 'scroll',
-      background: 'rgba(0,0,0,0.9)',
+      background: color.themeBackground,
       position: 'relative',
       padding: '10px'
     }

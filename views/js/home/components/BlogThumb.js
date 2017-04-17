@@ -1,19 +1,20 @@
 import React from 'react'
+import color from 'styles/color'
 
 export default class BlogThumb extends React.Component {
   render () {
     const { title, photos, dayNumber, distanceKm, budget } = this.props.blog
 
     const imageStyle = {
-      maxHeight: '150px',
+      maxHeight: '200px',
       maxWidth: '100%'
     }
 
     const totalSpend = budget.length > 0 ? 0 : budget.reduce((acc, val) => (acc + val.total), 0)
 
     return <div className='row'>
-      <div style={{color: 'white'}}>
-        <p style={{marginBottom: '0', fontWeight: '600'}}>
+      <div style={{color: 'white', background: color.theme800, padding: '5px 6px 0 6px'}}>
+        <p style={{margin: '0', fontWeight: '600'}}>
           {title}
         </p>
         <div style={{fontSize: 'small', width: '100%'}}>
@@ -33,8 +34,6 @@ export default class BlogThumb extends React.Component {
             </div>
           </div>
         </div>
-      </div>
-      <div>
         {photos[0] && <img src={photos[0].url} alt={photos[0].title} style={imageStyle} />}
       </div>
     </div>

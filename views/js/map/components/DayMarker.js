@@ -1,5 +1,6 @@
 import React from 'react'
 import isEqual from 'lodash.isequal'
+import color from 'styles/color'
 
 import mapStyles from 'styles/components/map.css'
 
@@ -21,7 +22,7 @@ export default class DayMarker extends React.Component {
       width: K_WIDTH,
       height: K_HEIGHT,
       borderRadius: '50% 50% 50% 0',
-      background: '#89849b'
+      background: color.theme500
     }
 
     const pinMiddleStyle = {
@@ -31,7 +32,7 @@ export default class DayMarker extends React.Component {
       width: K_HEIGHT / 2,
       height: K_HEIGHT / 2,
       margin: '8px 0 0 8px',
-      background: '#2f2f2f',
+      background: color.theme900,
       position: 'absolute',
       borderRadius: '50%'
     }

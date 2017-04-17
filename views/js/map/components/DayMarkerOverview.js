@@ -1,5 +1,6 @@
 import React from 'react'
 import isEqual from 'lodash.isequal'
+import color from 'styles/color'
 
 import mapStyles from 'styles/components/map.css'
 
@@ -21,7 +22,7 @@ export default class DayMarkerOverview extends React.Component {
       width: K_WIDTH,
       height: K_HEIGHT,
       borderRadius: '50% 50% 50% 0',
-      background: '#89849b'
+      background: color.theme500
     }
 
     const BOX_WIDTH = 300
@@ -33,11 +34,11 @@ export default class DayMarkerOverview extends React.Component {
       content: '',
       width: BOX_WIDTH,
       height: BOX_HEIGHT,
-      background: '#89849b',
+      background: color.theme500,
       position: 'absolute',
       zIndex: 10,
 
-      color: 'white'
+      color: color.theme50
     }
 
     return <div>

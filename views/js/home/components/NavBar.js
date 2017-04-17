@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import color from 'styles/color'
 
 export default class NavBar extends React.Component {
 
@@ -16,17 +17,17 @@ export default class NavBar extends React.Component {
     }
 
     const navButtonStyle = {
-      background: '#424242',
-      color: '#e0e0e0',
+      background: color.theme800,
+      color: color.theme300,
       padding: '10px',
-      boxShadow: '0px 0px 0px 1px #212121 inset'
+      boxShadow: '0px 0px 0px 1px ' + color.theme900 + ' inset'
     }
 
     const navButtonActiveStyle = Object.assign({}, navButtonStyle, {
-      background: '#212121',
-      color: 'white',
+      background: color.theme900,
+      color: color.theme100,
       fontWeight: '500',
-      boxShadow: 'rgb(117, 117, 117) -1px -1px 3px 1px inset'
+      boxShadow: color.theme600 + ' -1px -1px 3px 1px inset'
     })
 
     return <div style={navBarStyles}>
