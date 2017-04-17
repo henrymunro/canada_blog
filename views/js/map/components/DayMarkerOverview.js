@@ -3,7 +3,7 @@ import isEqual from 'lodash.isequal'
 
 import mapStyles from 'styles/components/map.css'
 
-export default class DayMarker extends React.Component {
+export default class DayMarkerOverview extends React.Component {
 
   shouldComponentUpdate (nextProps, nextState) {
     return !isEqual(this.props, nextProps)
@@ -24,16 +24,20 @@ export default class DayMarker extends React.Component {
       background: '#89849b'
     }
 
-    const pinMiddleStyle = {
-      top: -(1 + 1.41) * K_HEIGHT / 2,
-      left: -K_WIDTH / 2,
+    const BOX_WIDTH = 300
+    const BOX_HEIGHT = 160
+
+    const boxStyle = {
+      top: -BOX_HEIGHT - (1 * K_HEIGHT / 2),
+      left: -BOX_WIDTH / 2,
       content: '',
-      width: K_HEIGHT / 2,
-      height: K_HEIGHT / 2,
-      margin: '8px 0 0 8px',
-      background: '#2f2f2f',
+      width: BOX_WIDTH,
+      height: BOX_HEIGHT,
+      background: '#89849b',
       position: 'absolute',
-      borderRadius: '50%'
+      zIndex: 10,
+
+      color: 'white'
     }
 
     return <div>
@@ -42,19 +46,21 @@ export default class DayMarker extends React.Component {
         style={pinStyle}
         onClick={this.props.onClick} />
       <div
-        className={mapStyles.dayMarker}
-        onClick={this.props.onClick}
-        style={pinMiddleStyle} />
+        className={mapStyles.bounce}
+        style={boxStyle}>
+        <h5>{this.props.name}</h5>
+      </div>
     </div>
   }
 }
       // {this.props.name}
 
-DayMarker.defaultProps = {
+DayMarkerOverview.defaultProps = {
   type: 'blog'
 }
 
-DayMarker.propTypes = {
+DayMarkerOverview.propTypes = {
+  name: React.PropTypes.string.isRequired,
   lat: React.PropTypes.number.isRequired,
   lng: React.PropTypes.number.isRequired,
   onClick: React.PropTypes.func,

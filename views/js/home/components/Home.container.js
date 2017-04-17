@@ -27,7 +27,7 @@ export default class Home extends React.Component {
     return <div>
       <HomeMap />
       <div className='row'>
-        <div className='col s2 m2 l2' style={{padding: 0}}>
+        <div className='col s2 m2 l2' style={{padding: 0}} >
           <HomeDrawer>
             {blog.length > 0 && [...blog].reverse().map((entry, key) => <BlogThumb blog={entry} key={entry._id} />)}
           </HomeDrawer>
@@ -39,4 +39,3 @@ export default class Home extends React.Component {
     </div>
   }
 }
-

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as selectors from '../reducer'
 import actions from '../actions'
 
-import {MapComponent, RouteMarker, DayMarker, Svg, Path} from '../../map'
+import {MapComponent, RouteMarker, DayMarker, DayMarkerOverview, Svg, Path} from '../../map'
 
 @connect((store) => {
   return {
@@ -15,11 +15,12 @@ import {MapComponent, RouteMarker, DayMarker, Svg, Path} from '../../map'
     mapBounds: selectors.getMapBounds(store),
     blog: selectors.getBlog(store),
     route: selectors.getRoute(store),
-    mapCenter: selectors.getChildClickCenter(store)
+    mapCenter: selectors.getChildClickCenter(store),
+    selectedBlogId: selectors.getSelectedBlogId(store)
   }
 }, actions)
 
-export default class Home extends React.Component {
+export default class HomeMapContainer extends React.Component {
 
   plotRoutePoints (route) {
     return route.map((point) => {
@@ -35,7 +36,13 @@ export default class Home extends React.Component {
   plotBlogPoints (blog) {
     return blog.map((day, key) => {
       const { lat, lng } = day.center || {}
-      return lat && <DayMarker lat={lat} lng={lng} name={day.title} key={day._id} onClick={() => this.props.homeOnMapSpecificChildClick({lat, lng})} />
+      // Check to see if the blog entry has been currently selected
+      if (day._id === this.props.selectedBlogId) {
+        // If so return the detailed day overview
+        return lat && <DayMarkerOverview lat={lat} lng={lng} name={day.title} key={day._id} onClick={() => this.props.homeOnMapSpecificChildClick({lat, lng, _id: day._id})} />
+      }
+      // Else return a map pin
+      return lat && <DayMarker lat={lat} lng={lng} key={day._id} onClick={() => this.props.homeOnMapSpecificChildClick({lat, lng, _id: day._id})} />
     })
   }
 

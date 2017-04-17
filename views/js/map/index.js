@@ -9,6 +9,7 @@ export default { actionTypes, selectors, utilities }
 // components
 export {default as BezierMarker} from './components/BezierMarker'
 export {default as DayMarker} from './components/DayMarker'
+export {default as DayMarkerOverview} from './components/DayMarkerOverview'
 export {default as MapComponent} from './components/Map.container'
 export {default as Path} from './components/Path'
 export {default as RouteMarker} from './components/RouteMarker'

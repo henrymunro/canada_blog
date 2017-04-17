@@ -32,9 +32,14 @@ export default (nameSpace = '') => {
     [`${nameSpace}_ON_GOOGLE_API_LOADED`]: (state, action) => updateObject(state, action.payload),
     [`${nameSpace}_ON_MAP_CLICK`]: (state, action) => updateObject(state, { clickDetails: action.payload }),
     [`${nameSpace}_ON_MAP_CHILD_CLICK`]: (state, action) => updateObject(state, { draggable: action.payload.draggable }),
-    [`${nameSpace}_ON_MAP_SPECIFIC_CHILD_CLICK`]: (state, action) => updateObject(state, { childClickCenter: action.payload })
+    [`${nameSpace}_ON_MAP_SPECIFIC_CHILD_CLICK`]: (state, action) => _onSpecificChildClick(state, action)
 
   }, initialState)
+}
+
+const _onSpecificChildClick = (state, action) => {
+  const { lat, lng } = action.payload
+  return updateObject(state, {childClickCenter: {lat, lng}})
 }
 
 // Selectors
