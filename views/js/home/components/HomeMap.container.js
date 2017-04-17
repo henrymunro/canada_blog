@@ -58,6 +58,15 @@ export default class HomeMapContainer extends React.Component {
     }).filter((point) => point.center)
   }
 
+  onMapLoad ({...props}) {
+    this.props.homeOnGoogleApiLoaded({...props})
+    const blog = this.props.blog
+    if (blog.length > 0) {
+      const { center, _id } = blog[blog.length - 1]
+      this.props.homeOnMapSpecificChildClick({lat: center.lat, lng: center.lng, _id})
+    }
+  }
+
   render () {
     const { blog, route } = this.props
     const svgLineBlogPoints = this.getPathArray(blog)
@@ -70,7 +79,7 @@ export default class HomeMapContainer extends React.Component {
           draggable={this.props.mapDraggable}
           onChange={this.props.homeOnMapChange}
           onClick={this.props.homeOnMapClick}
-          onGoogleApiLoaded={this.props.homeOnGoogleApiLoaded} >
+          onGoogleApiLoaded={this.onMapLoad.bind(this)} >
           {this.plotBlogPoints(this.props.blog)}
           {this.plotRoutePoints(this.props.route)}
           <Svg>

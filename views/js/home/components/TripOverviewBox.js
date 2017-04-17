@@ -1,4 +1,5 @@
 import React from 'react'
+import color from 'styles/color'
 
 export default class TripOverviewBox extends React.Component {
 
@@ -6,13 +7,17 @@ export default class TripOverviewBox extends React.Component {
     const divStyle = {
       height: '123px',
       width: '220px',
-      background: 'white',
+      background: color.theme300,
+      color: color.theme900,
       position: 'absolute',
       bottom: 0,
       right: 0,
       paddingTop: '5px',
       paddingLeft: '30px',
-      paddingRight: '30px'
+      paddingRight: '30px',
+      borderLeft: '2px solid ' + color.theme500,
+      borderTop: '2px solid ' + color.theme500,
+      borderTopLeftRadius: '7px'
     }
 
     return <div style={divStyle} >
