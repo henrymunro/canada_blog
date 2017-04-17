@@ -6,9 +6,9 @@ import actions from '../actions'
 
 import NavBar from './NavBar'
 
-@connect((store) => {
+@connect((store, ownProps) => {
   return {
-
+    currentRoute: ownProps.location.pathname
   }
 }, actions)
 
@@ -21,7 +21,7 @@ export default class HomeContainer extends React.Component {
 
   render () {
     return <div>
-      <NavBar />
+      <NavBar currentRoute={this.props.currentRoute} />
       {this.props.children}
     </div>
   }

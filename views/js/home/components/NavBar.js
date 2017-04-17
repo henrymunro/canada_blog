@@ -1,28 +1,61 @@
 import React from 'react'
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 import { Link } from 'react-router'
-import RaisedButton from 'material-ui/RaisedButton'
 
 export default class NavBar extends React.Component {
 
-  // shouldComponentUpdate (nextProps, nextState) {
-  //   return !isEqual(this.props, nextProps)
-  // }
+  checkPathName (path) {
+    const {currentRoute} = this.props
+    return ('/' + path === currentRoute || path === currentRoute)
+  }
 
   render () {
-    return <div style={{position: 'fixed'}}>
-      <Toolbar>
-        <ToolbarGroup>
-          <ToolbarTitle text='Options' />
-          <ToolbarSeparator />
-          <Link to='blog'><RaisedButton label='Blog' primary /></Link>
-          <Link to='home'><RaisedButton label='Home' primary /></Link>
-        </ToolbarGroup>
-      </Toolbar>
+    const navBarStyles = {
+      position: 'fixed',
+      width: '75%',
+      height: '50px'
+    }
+
+    const navButtonStyle = {
+      background: '#424242',
+      color: '#e0e0e0',
+      padding: '10px',
+      boxShadow: '0px 0px 0px 1px #212121 inset'
+    }
+
+    const navButtonActiveStyle = Object.assign({}, navButtonStyle, {
+      background: '#212121',
+      color: 'white',
+      fontWeight: '500',
+      boxShadow: 'rgb(117, 117, 117) -1px -1px 3px 1px inset'
+    })
+
+    return <div style={navBarStyles}>
+      <div className='row' style={{margin: 0, padding: 0}}>
+        <Link to='home'>
+          <div className='col s3 m3 l3' style={this.checkPathName('home') ? navButtonActiveStyle : navButtonStyle}>
+            <div className='center-align'>HOME</div>
+          </div>
+        </Link>
+        <Link to='photos'>
+          <div className='col s3 m3 l3' style={this.checkPathName('photos') ? navButtonActiveStyle : navButtonStyle}>
+            <div className='center-align'>PHOTOS</div>
+          </div>
+        </Link>
+        <Link to='blog'>
+          <div className='col s3 m3 l3' style={this.checkPathName('blog') ? navButtonActiveStyle : navButtonStyle}>
+            <div className='center-align'>BLOG</div>
+          </div>
+        </Link>
+        <Link to='budget'>
+          <div className='col s3 m3 l3' style={this.checkPathName('budget') ? navButtonActiveStyle : navButtonStyle}>
+            <div className='center-align'>BUDGET</div>
+          </div>
+        </Link>
+      </div>
     </div>
   }
 }
 
 NavBar.propTypes = {
-
+  currentRoute: React.PropTypes.string
 }

@@ -9,9 +9,10 @@ import HomeDrawer from './HomeDrawer'
 import HomeMap from './HomeMap.container'
 import NavBar from './NavBar'
 
-@connect((store) => {
+@connect((store, ownProps) => {
   return {
-    blog: selectors.getBlog(store)
+    blog: selectors.getBlog(store),
+    currentRoute: ownProps.location.pathname
   }
 }, actions)
 
@@ -33,7 +34,7 @@ export default class Home extends React.Component {
           </HomeDrawer>
         </div>
         <div className='col s9 m9 l10' style={{padding: 0}}>
-          <NavBar />
+          <NavBar currentRoute={this.props.currentRoute} />
         </div>
       </div>
     </div>
