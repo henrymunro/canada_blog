@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import NewRoutePoint from './NewRoutePoint.container'
 import RouteTable from './RouteTable'
 import RouteTableRow from './RouteTableRow'
-import { MapComponent, RouteMarker, DayMarker, Svg, BezierMarker } from '../../../map'
+import { MapComponent, RouteMarker, DayMarker, Svg, Path, BezierMarker } from '../../../map'
 import { mapRouteTableRows } from '../model'
 
 import blogEntriesImports, { actions as blogEntriesActions} from '../../blogEntries'
@@ -119,7 +119,10 @@ export default class Route extends React.Component {
               {this.plotBlogPoints(blog)}
               {this.plotRoutePoints(route)}
               {this.plotBezierPoints([...blog, ...route])}
-              {(svgLinePoints.length > 0 && this.props.mapLoaded) && <Svg coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+
+              <Svg>
+                {(svgLinePoints.length > 0 && this.props.mapLoaded) && <Path coords={svgLinePoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
+              </Svg>
 
             </MapComponent>
           </div>

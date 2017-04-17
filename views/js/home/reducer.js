@@ -28,6 +28,25 @@ export const getBlog = (state) => (state.blog.blog)
 export const getRoute = (state) => (state.home.homeRoot.route)
 export const getSelectedBlogId = (state) => (state.home.homeRoot.selectedBlogId)
 
+export const getCurrentDay = (state) => {
+  const blog = state.blog.blog
+  return !(blog.length > 0) ? 0 : blog.reduce((prev, curr) => (prev.dayNumber < curr.dayNumber ? prev.dayNumber : curr.dayNumber))
+}
+
+export const getTotalDistance = (state) => {
+  const blog = state.blog.blog
+  return !(blog.length > 0) ? 0 : blog.reduce((acc, value) => (acc + value.distanceKm), 0)
+}
+
+export const getTotalSpending = (state) => {
+  const blog = state.blog.blog
+  return !(blog.length > 0) ? 0 : blog.reduce((acc, value) => {
+// Work out total for each budget type
+    const daySpending = !(value.budget.length > 0) ? 0 : value.budget.reduce((acc, item) => (acc + item.total), 0)
+    return acc + daySpending
+  }, 0)
+}
+
 /* ############### Map Selectors ################### */
 export const getMap = (state) => mapImports.selectors.getMap(state.home.homeMap)
 export const getMapLoaded = (state) => mapImports.selectors.getMapLoaded(state.home.homeMap)

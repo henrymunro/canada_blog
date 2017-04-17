@@ -19,9 +19,9 @@ export default class DateAndSummary extends React.Component {
         />
         <TextField
           floatingLabelText='Distance (km)'
-          value={this.props.distance}
-          errorText={Number(this.props.distance) || !this.props.distance ? '' : 'Enter a number'}
-          onChange={(e, value) => this.props.onChange('distance', value)} />
+          value={this.props.distanceKm}
+          errorText={Number(this.props.distanceKm) || !this.props.distanceKm ? '' : 'Enter a number'}
+          onChange={(e, value) => this.props.onChange('distanceKm', value)} />
       </div>
       <div className='col s9 m9 l9'>
         <TextField
@@ -38,7 +38,7 @@ export default class DateAndSummary extends React.Component {
 
 DateAndSummary.propTypes = {
   date: React.PropTypes.instanceOf(Date).isRequired,
-  distance: React.PropTypes.string,
+  distanceKm: React.PropTypes.string,
   summary: React.PropTypes.string,
   onChange: React.PropTypes.func.isRequired
 }

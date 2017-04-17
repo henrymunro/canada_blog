@@ -5,6 +5,7 @@ import * as selectors from '../reducer'
 import actions from '../actions'
 
 import {MapComponent, RouteMarker, DayMarker, DayMarkerOverview, Svg, Path} from '../../map'
+import TripOverviewBox from './TripOverviewBox'
 
 @connect((store) => {
   return {
@@ -16,7 +17,11 @@ import {MapComponent, RouteMarker, DayMarker, DayMarkerOverview, Svg, Path} from
     blog: selectors.getBlog(store),
     route: selectors.getRoute(store),
     mapCenter: selectors.getChildClickCenter(store),
-    selectedBlogId: selectors.getSelectedBlogId(store)
+    selectedBlogId: selectors.getSelectedBlogId(store),
+    // Trip overview box
+    currentDay: selectors.getCurrentDay(store),
+    totalDistance: selectors.getTotalDistance(store),
+    totalSpending: selectors.getTotalSpending(store)
   }
 }, actions)
 
@@ -54,24 +59,10 @@ export default class HomeMapContainer extends React.Component {
   }
 
   render () {
-    const divStyle = {
-      height: '200px',
-      width: '200px',
-      marginTop: '50px',
-      background: 'white',
-      position: 'absolute',
-      top: 0,
-      right: 0
-    }
     const { blog, route } = this.props
-
     const svgLineBlogPoints = this.getPathArray(blog)
-
-    console.log('OADAUHS: ', svgLineBlogPoints, (svgLineBlogPoints.length > 0 && this.props.mapLoaded))
-
     const svgLineRoutePoints = this.getPathArray([blog[blog.length - 1], ...route])
 
-    // console.log('SVG POINT: ', svgLinePoints)
     return <div>
       <div style={{height: '100vh', width: '100vw', position: 'fixed'}}>
         <MapComponent
@@ -87,9 +78,11 @@ export default class HomeMapContainer extends React.Component {
             {(svgLineBlogPoints.length > 0 && this.props.mapLoaded) && <Path coords={svgLineBlogPoints} zoom={this.props.zoom} nwCorner={this.props.mapBounds.nw} />}
           </Svg>
         </MapComponent>
-        <div style={divStyle} >
-          <h4>Here</h4>
-        </div>
+        <TripOverviewBox
+          currentDay={this.props.currentDay}
+          totalDistance={this.props.totalDistance}
+          totalSpending={this.props.totalSpending}
+        />
       </div>
       {this.props.children}
     </div>

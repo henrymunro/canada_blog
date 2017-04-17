@@ -46,7 +46,7 @@ export default class NewBlogEntry extends React.Component {
         <DateAndSummary
           date={this.props.formState.date}
           summary={this.props.formState.summary}
-          distance={this.props.formState.distance}
+          distanceKm={this.props.formState.distanceKm}
           onChange={this.props.updateNewBlogEntryForm}
         />
         <Divider />
