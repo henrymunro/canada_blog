@@ -12,7 +12,8 @@ const initialState = {
 const homeReducer = handleActions({
   GET_BLOG_FULFILLED: (state, action) => updateObject(state, { blog: action.payload.data }),
   GET_ROUTE_FULFILLED: (state, action) => updateObject(state, { route: action.payload.data }),
-  HOME_ON_MAP_SPECIFIC_CHILD_CLICK: (state, action) => updateObject(state, { selectedBlogId: action.payload._id })
+  HOME_ON_MAP_SPECIFIC_CHILD_CLICK: (state, action) => updateObject(state, { selectedBlogId: action.payload._id }),
+  HOME_ON_MAP_CLICK: (state, action) => updateObject(state, {selectedBlogId: undefined})
 }, initialState)
 
 const homeMapReducer = mapReducerCreator('HOME')
