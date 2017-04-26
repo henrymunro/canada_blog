@@ -45,3 +45,7 @@ build/admin.min.js
 
 build/S3 Management Console_files*
 S3 Management Console.html
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

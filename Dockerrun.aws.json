@@ -1,0 +1,28 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [{
+        "name": "canada_blog",
+        "image": "293326272061.dkr.ecr.us-east-1.amazonaws.com/canada_blog_staging:latest",
+        "environment": [],
+        "essential": true,
+        "memory": 512,
+        "portMappings": [{
+            "hostPort": 3000,
+            "containerPort": 3000
+        }],
+        "mountPoints": []
+    }, {
+        "name": "nginx",
+        "image": "293326272061.dkr.ecr.us-east-1.amazonaws.com/nginx:latest",
+        "essential": true,
+        "memory": 128,
+        "portMappings": [{
+            "hostPort": 8080,
+            "containerPort": 80
+        }],
+        "links": [
+            "canada_blog"
+        ],
+        "mountPoints": []
+    }]
+}

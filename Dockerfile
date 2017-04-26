@@ -7,11 +7,16 @@ WORKDIR /var/src/app
 
 
 # Install app dependencies
-COPY package.json /var/src/app/
+COPY package.json /var/src/
 RUN npm install --production
 
-# Bundle app source
-COPY . /var/src/app
+# Bundle server source
+COPY ./app /var/src/app
+# Bundle app code
+COPY ./build /var/src/build
+# Copy env if exists 
+COPY .env /var/src/.env
+
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
