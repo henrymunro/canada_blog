@@ -5,9 +5,6 @@ import webAPI from '../../webAPI'
 
 import axios from 'axios'
 
-const api = axios.create({
-  baseURL: 'http://localhost:3000/api/secure'
-})
 
 export default createActions({
   // Sever API
@@ -73,7 +70,7 @@ const _savePhoto = (photo) => {
     var databaseInfo
     // Remove the actual image to reduce the overhead
     delete photoSend.imagePreviewUrl
-    api.post('/photos', photoSend)
+    webAPI.photos.savePhotos(photoSend)
         .then((res) => {
           console.log('RESULT: ', res)
           const { signedRequest, url } = res.data
@@ -92,11 +89,3 @@ const _savePhoto = (photo) => {
         })
   })
 }
-
-// const _getS3SignedURL = () => {
-//   return api.post('/photos', photoSend)
-// }
-
-// const _uploadToS3SignedURL = (signedRequest, photo) => {
-//   return axios.put(signedRequest, photo.uploadDetails, { headers: {'Content-Type': photo.uploadDetails.type}})
-// }

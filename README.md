@@ -11,4 +11,6 @@ docker push 293326272061.dkr.ecr.us-east-1.amazonaws.com/canada_blog_staging:lat
 
 docker build -f Nginx.Dockerfile -t nginx . &&
 docker tag nginx:latest 293326272061.dkr.ecr.us-east-1.amazonaws.com/nginx:latest &&
-docker push 293326272061.dkr.ecr.us-east-1.amazonaws.com/nginx:latest
+docker push 293326272061.dkr.ecr.us-east-1.amazonaws.com/nginx:latest &&
+git add -A &&
+eb deploy --staged
