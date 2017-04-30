@@ -5,14 +5,14 @@ import color from 'styles/color'
 export default class NavBar extends React.Component {
 
   checkPathName (path) {
-    const {currentRoute} = this.props
+    const {currentRoute} = this.props || 'home'
     return ('/' + path === currentRoute || path === currentRoute)
   }
 
   render () {
     const navBarStyles = {
       position: 'fixed',
-      width: this.props.width || '75%',
+      width: this.props.width,
       height: '50px'
     }
 
@@ -29,6 +29,8 @@ export default class NavBar extends React.Component {
       fontWeight: '500',
       boxShadow: color.theme600 + ' -1px -1px 3px 1px inset'
     })
+
+    console.log('NAV BAR WIDTH: ', this.props.width, navBarStyles)
 
     return <div style={navBarStyles}>
       <div className='row' style={{margin: 0, padding: 0}}>
@@ -59,5 +61,5 @@ export default class NavBar extends React.Component {
 
 NavBar.propTypes = {
   currentRoute: React.PropTypes.string,
-  width: React.PropTypes.string
+  width: React.PropTypes.string.isRequired
 }

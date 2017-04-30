@@ -15,7 +15,7 @@ import Perf from 'react-addons-perf'
 window.Perf = Perf
 
 import { Blog } from './blog'
-import { Home, HomeContainer } from './home'
+import { Home } from './home'
 import store from './appStore'
 
 injectTapEventPlugin()
@@ -27,11 +27,9 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Router history={history}>
-      <Route component={HomeContainer}>
-        <Route path='/' component={Home} />
-        <Route path='blog' component={Blog} />
-        <Route path='home' component={Home} />
-      </Route>
+      <Route path='/' component={Home} />
+      <Route path='blog' component={Blog} />
+      <Route path='home' component={Home} />
     </Router>
   </MuiThemeProvider>
 </Provider>, app)
