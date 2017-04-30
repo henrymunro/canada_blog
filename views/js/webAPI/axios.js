@@ -9,7 +9,10 @@ export const api = axios.create({
 export const URLs = {
   routeAdmin: '/secure/route',
   blogEntryAdmin: '/secure/blogEntryAdmin',
-  photos: '/secure/photos',
+  photosAdmin: '/secure/photos',
   blog: '/blog',
-  route: '/route'
+  route: '/route',
+  photos: '/photos',
+  aboutMe: '/aboutMe',
+  budget: '/budget'
 }

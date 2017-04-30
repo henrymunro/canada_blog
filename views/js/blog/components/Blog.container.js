@@ -6,10 +6,12 @@ import actions from '../actions'
 
 import BlogOverview from './BlogOverview'
 import BlogPost from './BlogPost'
+import {NavBar} from '../../home'
 
-@connect((store) => {
+@connect((store, ownProps) => {
   return {
-    blog: selectors.getBlog(store)
+    blog: selectors.getBlog(store),
+    currentRoute: ownProps.location.pathname
 
   }
 }, actions)
@@ -20,7 +22,6 @@ export default class Blog extends React.Component {
   }
 
   render () {
-    console.log('BLOG: ', this.props.blog)
     const blogPost = this.props.blog[1]
 
     const mappedBlogs = this.props.blog.map((blogEntry, key) => {
@@ -32,6 +33,7 @@ export default class Blog extends React.Component {
     })
 
     return <div>
+      <NavBar currentRoute={this.props.currentRoute} width='100%' />
       <h1>blog</h1>
       {mappedBlogs}
       {blogPost && <BlogPost title={blogPost.title} dayNumber={blogPost.dayNumber} blog={blogPost.blog} />}

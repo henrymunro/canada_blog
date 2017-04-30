@@ -70,7 +70,7 @@ const _savePhoto = (photo) => {
     var databaseInfo
     // Remove the actual image to reduce the overhead
     delete photoSend.imagePreviewUrl
-    webAPI.photos.savePhotos(photoSend)
+    webAPI.photosAdmin.savePhotos(photoSend)
         .then((res) => {
           console.log('RESULT: ', res)
           const { signedRequest, url } = res.data

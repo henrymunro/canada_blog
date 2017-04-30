@@ -16,6 +16,9 @@ window.Perf = Perf
 
 import { Blog } from './blog'
 import { Home } from './home'
+import { Photos } from './photos'
+import { Budget } from './budget'
+import { AboutMe } from './aboutMe'
 import store from './appStore'
 
 injectTapEventPlugin()
@@ -30,6 +33,9 @@ ReactDOM.render(<Provider store={store}>
       <Route path='/' component={Home} />
       <Route path='blog' component={Blog} />
       <Route path='home' component={Home} />
+      <Route path='photos' component={Photos} />
+      <Route path='budget' component={Budget} />
+      <Route path='aboutMe' component={AboutMe} />
     </Router>
   </MuiThemeProvider>
 </Provider>, app)
