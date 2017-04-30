@@ -9,6 +9,7 @@ logger.info('Loading in photoSchema', {loggerModule, startUp: true})
 module.exports = mongoose.model('Photo', new Schema({
   name: { type: String, required: true },
   url: { type: String, required: true },
+  resizeURL: {type: String, required: true},
   date: { type: Date, required: true },
   summary: { type: String },
   uploadDetails: { type: Object },

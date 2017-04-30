@@ -72,6 +72,8 @@ export default class HomeMapContainer extends React.Component {
     const svgLineBlogPoints = this.getPathArray(blog)
     const svgLineRoutePoints = this.getPathArray([blog[blog.length - 1], ...route])
 
+    console.log('THIS IS THE CURRENT DAY!!: ', this.props.currentDay)
+
     return <div>
       <div style={{height: '100vh', width: '100vw', position: 'fixed'}}>
         <MapComponent

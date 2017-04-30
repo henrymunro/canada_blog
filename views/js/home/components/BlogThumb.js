@@ -2,14 +2,22 @@ import React from 'react'
 import color from 'styles/color'
 
 export default class BlogThumb extends React.Component {
-  render () {
-    const { title, photos, dayNumber, distanceKm, budget } = this.props.blog
 
+  assemblePhoto (photo) {
     const imageStyle = {
       maxHeight: '200px',
       maxWidth: '100%',
       boxShadow: '0px 0px 0px 1px ' + color.theme900 + ' inset'
     }
+
+    // Pull out info if exists
+    const {resizeURL, name, title} = photo || {}
+    const photoURL = `${resizeURL}\\300x200\\${name}`
+    return photo && <img src={photoURL} alt={title} style={imageStyle} />
+  }
+
+  render () {
+    const { title, photos, dayNumber, distanceKm, budget } = this.props.blog
 
     const thumbStyle = {
       color: 'white',
@@ -21,10 +29,10 @@ export default class BlogThumb extends React.Component {
     const totalSpend = budget.length > 0 ? 0 : budget.reduce((acc, val) => (acc + val.total), 0)
 
     //  Pull out first four photos if they exist
-    const photo1 = photos[0] && <img src={(photos[0] || {}).url} alt={photos[0].title} style={imageStyle} />
-    const photo2 = photos[1] && <img src={(photos[1] || {}).url} alt={photos[1].title} style={imageStyle} />
-    const photo3 = photos[2] && <img src={(photos[2] || {}).url} alt={photos[2].title} style={imageStyle} />
-    const photo4 = photos[3] && <img src={(photos[3] || {}).url} alt={photos[3].title} style={imageStyle} />
+    const photo1 = this.assemblePhoto(photos[0])
+    const photo2 = this.assemblePhoto(photos[1])
+    const photo3 = this.assemblePhoto(photos[2])
+    const photo4 = this.assemblePhoto(photos[3])
 
     const photoDivStyles = {
       margin: 0,

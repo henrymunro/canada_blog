@@ -30,7 +30,7 @@ export const getSelectedBlogId = (state) => (state.home.homeRoot.selectedBlogId)
 
 export const getCurrentDay = (state) => {
   const blog = state.blog.blog
-  return !(blog.length > 0) ? 0 : blog.reduce((prev, curr) => (prev.dayNumber < curr.dayNumber ? prev.dayNumber : curr.dayNumber))
+  return !(blog.length > 0) ? 0 : blog.reduce((prev, curr) => (prev.dayNumber < curr.dayNumber ? prev.dayNumber : curr.dayNumber), 0)
 }
 
 export const getTotalDistance = (state) => {

@@ -12,7 +12,7 @@ export default class NavBar extends React.Component {
   render () {
     const navBarStyles = {
       position: 'fixed',
-      width: '75%',
+      width: this.props.width || '75%',
       height: '50px'
     }
 
@@ -58,5 +58,6 @@ export default class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  currentRoute: React.PropTypes.string
+  currentRoute: React.PropTypes.string,
+  width: React.PropTypes.string
 }

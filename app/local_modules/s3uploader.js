@@ -1,7 +1,7 @@
 const aws = require('aws-sdk')
 const { logger, logError } = require('../logger')
 const loggerModule = 's3uploader.js'
-const { accessKeyId, secretAccessKey, region, photoUploadBucket } = require('../config').AWS
+const { accessKeyId, secretAccessKey, region, photoUploadBucket, photoAccessURL } = require('../config').AWS
 
 const getS3SignedUrl = (fileName, fileType) => {
   return new Promise((resolve, reject) => {
@@ -21,6 +21,8 @@ const getS3SignedUrl = (fileName, fileType) => {
       }
       const returnData = {
         signedRequest: data,
+        resizeURL: photoAccessURL,
+        name: fileName,
         url: `https://${photoUploadBucket}.s3.amazonaws.com/${fileName}`
       }
       logger.debug('Got S3 signed url', {loggerModule, signedURL: returnData})
@@ -32,3 +34,5 @@ const getS3SignedUrl = (fileName, fileType) => {
 module.exports = {
   getS3SignedUrl
 }
+
+// http://serverlessimageresize-imagebucket-13vuzexfssbzk.s3-website.eu-west-2.amazonaws.com/

@@ -2,13 +2,19 @@ const mongoose = require('mongoose')
 const { logger, logError } = require('../logger')
 const loggerModule = 'databaseConnection.js'
 const config = require('../config').database
+const env = require('../config').env
 
 logger.info('Loading in databaseConnection', {loggerModule, startUp: true})
 
 // const connectionURL = config.URL// + '/' + config.database
 // const connectionURL = "mongodb://henrymunro-shard-00-00-lqexw.mongodb.net:27017,henrymunro-shard-00-01-lqexw.mongodb.net:27017,henrymunro-shard-00-02-lqexw.mongodb.net:27017"
 
-const connectionURL = `mongodb://${config.username}:${config.password}@${config.URL}/${config.database}?${config.URL_params}`
+let connectionURL
+if (env === 'development') {
+  connectionURL = `mongodb://${config.URL}/${config.database}`
+} else {
+  connectionURL = `mongodb://${config.username}:${config.password}@${config.URL}/${config.database}?${config.URL_params}`
+}
 
 mongoose.connect(connectionURL)
 // mongoose.connect("mongodb://HenryAdmin:Ly3w3nqG5O0QL1ps@henrymunro-shard-00-00-lqexw.mongodb.net:27017,henrymunro-shard-00-01-lqexw.mongodb.net:27017,henrymunro-shard-00-02-lqexw.mongodb.net:27017/admin?ssl=true&replicaSet=HenryMunro-shard-0&authSource=admin")

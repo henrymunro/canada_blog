@@ -22,7 +22,9 @@ export default class DayMarkerOverview extends React.Component {
       width: K_WIDTH,
       height: K_HEIGHT,
       borderRadius: '50% 50% 50% 0',
-      background: color.theme800
+      background: color.theme800,
+      filter: 'alpha(opacity=90)',
+      opacity: 0.9
     }
 
     const BOX_WIDTH = 300
@@ -41,7 +43,9 @@ export default class DayMarkerOverview extends React.Component {
       borderRadius: '7px',
       border: '2px solid ' + color.theme800,
 
-      color: color.theme50
+      color: color.theme50,
+      filter: 'alpha(opacity=90)',
+      opacity: 0.9
     }
 
     return <div>

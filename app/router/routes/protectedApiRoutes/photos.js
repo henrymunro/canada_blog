@@ -24,7 +24,7 @@ const _postPhotos = (req, res) => {
   getS3SignedUrl(req.body.name, req.body.uploadDetails.type)
   .then((result) => {
     resultToSendToClient = result
-    return _logPhotoToDB(req.body, result.url)
+    return _logPhotoToDB(Object.assign({}, {photo: req.body}, result))
   }).then((result) => {
     resultToSendToClient.db = result
     res.json(resultToSendToClient)
@@ -34,10 +34,11 @@ const _postPhotos = (req, res) => {
   })
 }
 
-const _logPhotoToDB = (photo, url) => {
+const _logPhotoToDB = ({photo, url, resizeURL}) => {
   return new Promise((resolve, reject) => {
     const photoDetails = {
       name: photo.name,
+      resizeURL,
       url,
       date: photo.date,
       uploadDetails: photo.uploadDetails
