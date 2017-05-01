@@ -28,12 +28,12 @@ export default class PhotoUploadViewer extends React.Component {
 
     const imageStyle = {
       maxHeight: '200px',
-      maxWidth: '100%'
+      width: '300px'
     }
 
     return <div className='row'>
       <div style={styles.root}>
-        <GridList style={styles.gridList} cols={2.2}>
+        <GridList style={styles.gridList} cols={2}>
           {this.props.photos.map((photo) => (
             <GridTile
               onClick={() => this.props.movePhotoUpInArray(photo._id)}

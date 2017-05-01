@@ -1,6 +1,6 @@
 import React from 'react'
 import isEqual from 'lodash.isequal'
-import {Card, CardMedia, CardTitle} from 'material-ui/Card'
+import {Card, CardMedia} from 'material-ui/Card'
 
 import ResizedPhoto from './ResizedPhoto'
 
