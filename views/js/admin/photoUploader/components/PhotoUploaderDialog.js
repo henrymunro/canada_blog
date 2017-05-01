@@ -16,7 +16,7 @@ export default class PhotoUploaderDialog extends React.Component {
     ]
 
     const {uploadingCount, uploadedCount, uploadingErrorCount} = this.props
-    const errorMessage = (uploadingErrorCount > 0) && `, Error: ${uploadingErrorCount}`
+    const errorMessage = uploadingErrorCount > 0 && `, Error: ${uploadingErrorCount}`
     const statusMessage = (uploadedCount > 0 || uploadingCount > 0 || uploadingErrorCount > 0) && `Uploading: ${uploadingCount}, Uploaded: ${uploadedCount}`
     return <div>
       <Dialog

@@ -8,8 +8,6 @@ export default class PhotoCard extends React.Component {
     return !isEqual(this.props, nextProps)
   }
 
-  componentDid
-
   render () {
     const { uploaded, uploading } = this.props
     const style = uploading ? 'orange' : uploaded ? 'green' : 'black'

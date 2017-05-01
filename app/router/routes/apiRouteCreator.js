@@ -8,10 +8,10 @@ module.exports = function apiRoute (Schema) {
 /*
 * GET /uri route to retrieve all the entries.
 */
-  function getEntries (req, res, next, clause = {endDate: null}, sort = {}) {
-    logger.debug('Request recieved to get entries', {loggerModule, URL: req.originalUrl, clause: clause, sort: sort})
+  function getEntries (req, res, next, clause = {endDate: null}, sort = {}, fields = {}) {
+    logger.debug('Request recieved to get entries', {loggerModule, URL: req.originalUrl, clause, sort, fields})
 // Query the DB and if no errors, send all the books
-    const query = Schema.find(clause).sort(sort)
+    const query = Schema.find(clause).select(fields).sort(sort)
     query.exec((err, output) => {
       if (err) {
         logError(err, `Error getting entries  ${req.originalUrl}`, loggerModule)

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 
 // import PhotoPreview from './PhotoPreview'
-import PhotoCard from './PhotoCard'
+import UploadPhotoCard from './UploadPhotoCard'
 import PhotoUploaderDialog from './PhotoUploaderDialog'
 
 import * as selectors from '../reducer'
@@ -87,7 +87,7 @@ export default class PhotoUploader extends React.Component {
   render () {
     const mappedPhotos = this.props.uploadedPhotos.map((photo, key) => {
       return <div className='col s6 m6 l3' key={photo._id}>
-        <PhotoCard
+        <UploadPhotoCard
           name={photo.name}
           summary={photo.summary}
           uploading={photo.uploading}
@@ -128,7 +128,7 @@ export default class PhotoUploader extends React.Component {
     //           date={photo.date}
     //           onChange={(key, value) => this.props.updateUploadedPhoto(key, value, photo._id)}
     //           key={key}>
-    //             <PhotoCard
+    //             <UploadPhotoCard
     //             name={photo.name}
     //             summary={photo.summary}
     //             imagePreviewUrl={photo.imagePreviewUrl} />

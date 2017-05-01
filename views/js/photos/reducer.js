@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const photosReducer = handleActions({
-  GET_PHOTOS_FULFILLED: (state, action) => updateObject(state, { route: action.payload.data })
+  GET_PHOTOS_FULFILLED: (state, action) => updateObject(state, { photos: action.payload.data })
 }, initialState)
 
 const photosMapReducer = mapReducerCreator('PHOTOS')
@@ -19,7 +19,7 @@ export default combineReducers({
 })
 
 /*  #############       Selectors     ################   */
-export const getPhotos = (state) => (state.photos.photos)
+export const getPhotos = (state) => (state.photos.photosRoot.photos)
 
 /* ############### Map Selectors ################### */
 

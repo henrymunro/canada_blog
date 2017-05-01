@@ -12,6 +12,7 @@ export default {
   theme900: 'rgba(33,33,33,1)',
 
   themeBackground: 'rgba(0,0,0,0.9)',
+  themeBackgroundDark: 'rgba(0,0,0,1)',
 
   A100: 'rgba(245,245,245,0.9)',
   A200: 'rgba(238,238,238,0.9)',
