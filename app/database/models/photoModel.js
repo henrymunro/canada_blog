@@ -14,6 +14,7 @@ module.exports = mongoose.model('Photo', new Schema({
   summary: { type: String },
   uploadDetails: { type: Object },
   addedDate: { type: Date, default: new Date() },
+  uploaded: {type: Boolean, default: false},
   endDate: { type: Date }
 }))
 

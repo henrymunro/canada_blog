@@ -1,6 +1,7 @@
 import React from 'react'
 import {GridList, GridTile} from 'material-ui/GridList'
 import isEqual from 'lodash.isequal'
+import {ResizedPhoto} from '../../../photos'
 
 export default class PhotoUploadViewer extends React.Component {
 
@@ -25,6 +26,11 @@ export default class PhotoUploadViewer extends React.Component {
       }
     }
 
+    const imageStyle = {
+      maxHeight: '200px',
+      maxWidth: '100%'
+    }
+
     return <div className='row'>
       <div style={styles.root}>
         <GridList style={styles.gridList} cols={2.2}>
@@ -35,7 +41,7 @@ export default class PhotoUploadViewer extends React.Component {
               title={photo.name}
               titleStyle={styles.titleStyle}
               titleBackground='linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)'>
-              <img src={photo.url} />
+              <ResizedPhoto style={imageStyle} photo={photo} size={'300x200'} />
             </GridTile>))}
         </GridList>
       </div>

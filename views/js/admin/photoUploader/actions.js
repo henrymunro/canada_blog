@@ -12,7 +12,12 @@ export default createActions({
   [actions.UPLOAD_NEW_BLOG_PHOTOS]: (e) => _uploadPhotos(e),
   [actions.SAVE_UPLOADED_PHOTOS]: (photos) => _savePhotos(photos),
   [actions.UPDATE_UPLOADED_PHOTO]: (key, value, _id) => ({[key]: value, _id}),
-  [actions.UPDATE_PHOTO_UPLOADER_PROP]: (key, value) => ({[key]: value})
+  [actions.UPDATE_UPLOADED_PHOTO_DATABASE]: (updates, _id) => webAPI.photosAdmin.updatePhoto({updates, _id}),
+  [actions.UPDATE_PHOTO_UPLOADER_PROP]: (key, value) => ({[key]: value}),
+
+  // 
+  [actions.UPLOAD_PHOTO_TO_SERVER]: (photo) => _savePhoto(photo),
+  [actions.UPLOAD_PHOTO_TO_S3]: (photo) => _uploadPhotoToS3(photo),
 },
   actions.CANCEL_PHOTO_UPLOAD
 )
@@ -36,7 +41,7 @@ const _uploadPhoto = (photo, key) => {
     const reader = new FileReader()
     reader.onloadend = () => {
       resolve({
-        _id: key,
+        _id: Number(key),
         uploadDetails: photo,
         date: photo.lastModifiedDate,
         name: photo.name,
@@ -49,19 +54,19 @@ const _uploadPhoto = (photo, key) => {
 }
 
 // Function to handle photo saves to the server
-const _savePhotos = (photos) => {
-  return new Promise((outerResolve, outerReject) => {
-    const photosPromise = photos.map((photo) => {
-      return _savePhoto(photo)
-    })
+// const _savePhotos = (photos) => {
+//   return new Promise((outerResolve, outerReject) => {
+//     const photosPromise = photos.map((photo) => {
+//       return _savePhoto(photo)
+//     })
 
-    Promise.all(photosPromise).then((result) => {
-      outerResolve(result)
-    }).catch((err) => {
-      outerReject(err)
-    })
-  })
-}
+//     Promise.all(photosPromise).then((result) => {
+//       outerResolve(result)
+//     }).catch((err) => {
+//       outerReject(err)
+//     })
+//   })
+// }
 
 const _savePhoto = (photo) => {
   return new Promise((resolve, reject) => {
@@ -72,20 +77,34 @@ const _savePhoto = (photo) => {
     delete photoSend.imagePreviewUrl
     webAPI.photosAdmin.savePhotos(photoSend)
         .then((res) => {
+          const { signedRequest, url, name, resizeURL } = res.data
+          const databaseInfo = res.data.db
           console.log('RESULT: ', res)
-          const { signedRequest, url } = res.data
-          databaseInfo = res.data.db
-          return axios.put(signedRequest, photo.uploadDetails, { headers: {'content-type': photo.uploadDetails.type}})
-        }).then((s3Result) => {
-          console.log('S3 Result: ', s3Result)
-          const result = {
-            s3Result,
-            databaseInfo
-          }
-          resolve(result)
+          console.log('SIGNED REQUEST: ', signedRequest)
+          console.log('PHOTO: ', photo)
+          console.log('DATABASE INFO: ', databaseInfo)
+          return resolve({signedRequest, photo, databaseInfo})
         }).catch((err) => {
           console.error(err)
           reject(err)
         })
   })
 }
+
+const _uploadPhotoToS3 = ({signedRequest, photo, databaseInfo}) => {
+  return new Promise((resolve, reject)=>{
+    axios.put(signedRequest, photo.uploadDetails, { headers: {'content-type': photo.uploadDetails.type}})
+      .then((s3Result) => {
+        console.log('S3 Result: ', s3Result)
+        const result = {
+          s3Result,
+          databaseInfo,
+          success: s3Result.status===200 && s3Result.statusText==='OK'
+        }
+        resolve(result)
+      }).catch(err => {
+        reject(err)
+      })    
+  })
+}
+

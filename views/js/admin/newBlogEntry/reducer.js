@@ -12,7 +12,7 @@ const defaultFormState = {
   bezier0: {lat: undefined, lng: undefined},
   bezier1: {lat: undefined, lng: undefined},
   summary: undefined,
-  distanceKm: 0,
+  distanceKm: '0',
   blog: undefined,
   photos: [],
   budget: []
@@ -20,7 +20,6 @@ const defaultFormState = {
 
 const initialState = {
   formState: defaultFormState,
-  savedPhotos: [],
   showBlog: false,
   showPhotos: false,
   // edit photos dialog
@@ -31,7 +30,8 @@ const initialState = {
 const newBlogEntryReducer = handleActions({
   UPDATE_NEW_BLOG_ENTRY_FORM: (state, action) => _updateNewBlogEntryForm(state, action),
   TOGGLE_NEW_BLOG_ENTRY_PROP: (state, action) => updateObject(state, action.payload),
-  SAVE_UPLOADED_PHOTOS_FULFILLED: (state, action) => _savedPhotos(state, action),
+  // SAVE_UPLOADED_PHOTOS_FULFILLED: (state, action) => _savedPhotos(state, action),
+  UPDATE_UPLOADED_PHOTO_DATABASE_FULFILLED: (state, action) => _savePhoto(state, action),
   MOVE_NEW_BLOG_PHOTO_UP_IN_ARRAY: (state, action) => _moveNewBlogPhotoUpInArray(state, action),
   SAVE_NEW_BLOG_ENTRY_FULFILLED: (state, action) => updateObject(state, initialState),
   // Edit photos dialog
@@ -54,11 +54,18 @@ const _updateNewBlogEntryForm = (state, action) => {
   return updateObject(state, {formState: nextBlogEntryForm})
 }
 
-const _savedPhotos = (state, action) => {
-  var nextPhotosState = state.formState.photos
-  action.payload.map((photo, key) => {
-    nextPhotosState = addOrUpdateItemInArray(nextPhotosState, photo.databaseInfo._id, photo.databaseInfo)
-  })
+// const _savedPhotos = (state, action) => {
+//   var nextPhotosState = state.formState.photos
+//   action.payload.map((photo, key) => {
+//     nextPhotosState = addOrUpdateItemInArray(nextPhotosState, photo.databaseInfo._id, photo.databaseInfo)
+//   })
+//   const nextFormState = updateObject(state.formState, {photos: nextPhotosState})
+//   return updateObject(state, { formState: nextFormState })
+// }
+
+const _savePhoto = (state, action) => {
+  const databaseInfo = action.payload.data.entry
+  const nextPhotosState = addOrUpdateItemInArray(state.formState.photos, databaseInfo._id, databaseInfo)
   const nextFormState = updateObject(state.formState, {photos: nextPhotosState})
   return updateObject(state, { formState: nextFormState })
 }

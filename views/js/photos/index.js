@@ -5,5 +5,6 @@ import * as actionTypes from './actionTypes'
 export default { actions, actionTypes }
 
 export {default as Photos} from './components/Photos.container.js'
+export {default as ResizedPhoto} from './components/ResizedPhoto.js'
 export {default as reducer} from './reducer'
 

@@ -12,7 +12,7 @@ export default class NavBar extends React.Component {
   render () {
     const navBarStyles = {
       position: 'fixed',
-      width: this.props.width,
+      width: this.props.width || '100%',
       height: '50px',
       top: 0
     }
@@ -40,6 +40,11 @@ export default class NavBar extends React.Component {
             <div className='center-align'>HOME</div>
           </div>
         </Link>
+        <Link to='aboutMe'>
+          <div className='col s3 m3 l3' style={this.checkPathName('aboutMe') ? navButtonActiveStyle : navButtonStyle}>
+            <div className='center-align'>ABOUT ME</div>
+          </div>
+        </Link>
         <Link to='photos'>
           <div className='col s3 m3 l3' style={this.checkPathName('photos') ? navButtonActiveStyle : navButtonStyle}>
             <div className='center-align'>PHOTOS</div>
@@ -50,17 +55,12 @@ export default class NavBar extends React.Component {
             <div className='center-align'>BLOG</div>
           </div>
         </Link>
-        <Link to='budget'>
-          <div className='col s3 m3 l3' style={this.checkPathName('budget') ? navButtonActiveStyle : navButtonStyle}>
-            <div className='center-align'>BUDGET</div>
-          </div>
-        </Link>
       </div>
     </div>
   }
 }
 
 NavBar.propTypes = {
-  // currentRoute: React.PropTypes.string,
-  // width: React.PropTypes.string
+  currentRoute: React.PropTypes.string,
+  width: React.PropTypes.string
 }

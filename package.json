@@ -15,7 +15,8 @@
       "it",
       "describe",
       "beforeEach",
-      "expect"
+      "expect",
+      "Event"
     ],
     "ignore": [
       "**/build/"
