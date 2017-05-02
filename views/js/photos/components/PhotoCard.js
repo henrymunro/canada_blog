@@ -16,7 +16,7 @@ export default class PhotoCard extends React.Component {
         <CardMedia
           // overlay={<CardTitle title={this.props.photo.name} subtitle={this.props.photo.summary}/>}
           >
-          <ResizedPhoto photo={this.props.photo} size='750x500' />
+          <ResizedPhoto photo={this.props.photo} size='750x500' onError={this.props.onError} />
         </CardMedia>
       </Card>
     </div>
@@ -24,6 +24,7 @@ export default class PhotoCard extends React.Component {
 }
 
 PhotoCard.propTypes = {
-  photo: React.PropTypes.object
+  photo: React.PropTypes.object,
+  onError: React.PropTypes.func
 
 }

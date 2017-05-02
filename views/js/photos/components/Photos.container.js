@@ -28,7 +28,7 @@ export default class Photos extends React.Component {
       <h1>Photos</h1>
       {this.props.photos.map((blogEntry, key) => {
         return <PhotoGroup title={blogEntry.title} dayNumber={blogEntry.dayNumber} key={blogEntry._id}>
-          {blogEntry.photos.map(photo => <PhotoCard photo={photo} key={photo._id} />)}
+          {blogEntry.photos.map(photo => <PhotoCard photo={photo} key={photo._id} onError={() => this.props.removePhotoOnLoadError({blogId: blogEntry._id, _id: photo._id})} />)}
         </PhotoGroup>
       })}
 

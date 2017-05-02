@@ -8,7 +8,7 @@ export default class ResizedPhoto extends React.Component {
   }
 
   render () {
-    const { photo, style, size } = this.props
+    const { photo, style, size, onError, onLoad } = this.props
     console.log('RESIZE: ', size)
     // Pull out info if exists
     const {resizeURL, name, title, url} = photo || {}
@@ -20,7 +20,7 @@ export default class ResizedPhoto extends React.Component {
     const photoURL = resizeExists ? `${resizeURL}\\${size}\\${name}` : url
 
     return <div>
-      <img src={photoURL} alt={title} style={style} />
+      <img src={photoURL} alt={title} style={style} onError={onError} onLoad={onLoad} />
     </div>
   }
 }
@@ -28,6 +28,8 @@ export default class ResizedPhoto extends React.Component {
 ResizedPhoto.propTypes = {
   photo: React.PropTypes.object,
   style: React.PropTypes.object,
-  size: React.PropTypes.string
+  size: React.PropTypes.string,
+  onError: React.PropTypes.func,
+  onLoad: React.PropTypes.func
 
 }
