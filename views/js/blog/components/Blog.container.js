@@ -33,7 +33,7 @@ export default class Blog extends React.Component {
     })
 
     return <div>
-      <NavBar currentRoute={this.props.currentRoute} width='100%' />
+      <NavBar currentRoute={this.props.currentRoute} />
       <h1>blog</h1>
       {mappedBlogs}
       {blogPost && <BlogPost title={blogPost.title} dayNumber={blogPost.dayNumber} blog={blogPost.blog} />}

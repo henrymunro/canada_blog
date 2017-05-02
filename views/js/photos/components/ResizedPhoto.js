@@ -9,7 +9,6 @@ export default class ResizedPhoto extends React.Component {
 
   render () {
     const { photo, style, size, onError, onLoad } = this.props
-    console.log('RESIZE: ', size)
     // Pull out info if exists
     const {resizeURL, name, title, url} = photo || {}
 

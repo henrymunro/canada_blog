@@ -12,7 +12,7 @@ export default class PhotoCard extends React.Component {
 
   render () {
     return <div className='col s6 m6 l4' style={{padding: 0}}>
-      <Card style={{margin: '2px'}}>
+      <Card style={{margin: '2px', zIndex: 0}}>
         <CardMedia
           // overlay={<CardTitle title={this.props.photo.name} subtitle={this.props.photo.summary}/>}
           >

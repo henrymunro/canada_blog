@@ -23,7 +23,7 @@ export default class AboutMe extends React.Component {
 
   render () {
     return <div>
-      <NavBar currentRoute={this.props.currentRoute} width='100%' />
+      <NavBar currentRoute={this.props.currentRoute} />
       <div style={{margin: '60px'}}>
         <div className='row'>
           <div className='col s6 m6 l6'>

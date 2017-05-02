@@ -1,5 +1,6 @@
 import React from 'react'
 import isEqual from 'lodash.isequal'
+import { Sticky } from 'react-sticky'
 
 import color from 'styles/color'
 
@@ -10,9 +11,18 @@ export default class PhotoGroup extends React.Component {
   }
 
   render () {
+    const headingStyles = {
+      color: color.theme50,
+      background: color.themeBackground,
+      paddingTop: '5px',
+      paddingBottom: '5px'
+    }
+
     return <div style={{paddingLeft: '5px', paddingRight: '5px'}}>
       <div className='row'>
-        <h5 style={{color: color.theme50}}>{`${this.props.title} - Day ${this.props.dayNumber}`}</h5>
+        <Sticky>
+          <h5 style={headingStyles}>{`${this.props.title} - Day ${this.props.dayNumber}`}</h5>
+        </Sticky>
         {this.props.children}
       </div>
     </div>

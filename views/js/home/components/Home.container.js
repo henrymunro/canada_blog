@@ -24,8 +24,6 @@ export default class Home extends React.Component {
   }
 
   render () {
-    const navBarWidth = Number(window.innerWidth) >= 992 ? '84%' : '75%'
-
     const {blog} = this.props
     return <div>
       <HomeMap />
@@ -36,7 +34,7 @@ export default class Home extends React.Component {
           </HomeDrawer>
         </div>
         <div className='col s9 m9 l10' style={{padding: 0}}>
-          <NavBar currentRoute={this.props.currentRoute} width={navBarWidth} />
+          <NavBar currentRoute={this.props.currentRoute} />
         </div>
       </div>
     </div>
