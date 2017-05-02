@@ -13,7 +13,7 @@ export default class EmailSignUp extends React.Component {
 
   render () {
     return <div>
-      <div className='row' style={{background: color.theme100}}>
+      <div className='row' style={{background: color.theme100, paddingTop: '5px', paddingBottom: '5px'}}>
         <div className='col s12 m12 l12'>
           Sign up for weekly email updates:
         </div>
