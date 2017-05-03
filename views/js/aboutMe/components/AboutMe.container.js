@@ -7,6 +7,7 @@ import color from 'styles/color'
 
 import {NavBar} from '../../home'
 import EmailSignUp from './EmailSignUp'
+import GroupingBox from './GroupingBox'
 import SocialMediaLinks from './SocialMediaLinks.container'
 
 @connect((store, ownProps) => {
@@ -50,19 +51,20 @@ export default class AboutMe extends React.Component {
               Whilst we chip away at the 6000kms of trails I’ll be honing my photography and web design skills and this website is the story of our ongoing journey. Our aim is to cross the continent spending as little as possible, this will involve camping, couch surfing and I imagine a lot of pasta. I’ll be doing my best to keep track of all expense so I'll finally be able to give you all an answer that age old question ‘How much does it cost to cross Canada by bike?’. Who knows maybe some of you will look at your bank accounts and reach for your snazziest cycling sunnies, that's right the snazzier the better. Sign up below to keep up with our weekly email updates.
             </p>
           </div>
-          <div className='col s12 m6 l6 hide'>
-            <EmailSignUp />
-          </div>
-          <div className='col s12 m6 l6' />
-          <div className='col s12 m12 l12'>
-            <div className='container' style={{marginTop: '30px'}}>
-              <div style={textDivStyles}>
-                <h5>
+        </div>
+        <div className='row' style={{marginTop: 0}}>
+          <div className='col s12 m6 l7' style={{marginTop: '30px'}}>
+            <div style={textDivStyles}>
+              <h5>
                   This is my Dad, Steve, he says hi.
                 </h5>
-                <img src='images/meAndDad.jpg' alt='' class='responsive-img' style={{marginTop: '20px'}} />
-              </div>
+              <img src='images/meAndDad.jpg' alt='' class='responsive-img' style={{marginTop: '20px'}} />
             </div>
+          </div>
+          <div className='col s12 m6 l5' style={{marginTop: '30px'}}>
+            <GroupingBox>
+              <EmailSignUp />
+            </GroupingBox>
           </div>
         </div>
       </div>
