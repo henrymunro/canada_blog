@@ -21,4 +21,7 @@ require('./route')(protectedApiRoutes)
 // Route point routes
 require('./photos')(protectedApiRoutes)
 
+// Email sign up routes
+require('./emailSignUpAdmin')(protectedApiRoutes)
+
 module.exports = { protectedApiRoutes, authenticateApiRoutes }
