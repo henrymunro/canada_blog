@@ -24,12 +24,11 @@ export default class Photos extends React.Component {
   }
 
   render () {
-    console.log('OHOOTS: ', this.props.photos)
-    return <div style={{background: color.themeBackground}}>
+    return <div style={{background: color.themeBackgroundDark}}>
       <NavBar currentRoute={this.props.currentRoute} />
       <StickyContainer>
         {this.props.photos.map((blogEntry, key) => {
-          return <PhotoGroup title={blogEntry.title} dayNumber={blogEntry.dayNumber} key={blogEntry._id}>
+          return <PhotoGroup title={blogEntry.title} dayNumber={blogEntry.dayNumber} key={blogEntry._id} index={key}>
             {blogEntry.photos.map(photo => <PhotoCard photo={photo} key={photo._id} onError={() => this.props.removePhotoOnLoadError({blogId: blogEntry._id, _id: photo._id})} />)}
           </PhotoGroup>
         })}

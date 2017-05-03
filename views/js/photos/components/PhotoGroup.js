@@ -13,15 +13,19 @@ export default class PhotoGroup extends React.Component {
   render () {
     const headingStyles = {
       color: color.theme50,
-      background: color.themeBackground,
+      background: color.themeBackgroundDark,
       paddingTop: '5px',
       paddingBottom: '5px'
     }
 
     return <div style={{paddingLeft: '5px', paddingRight: '5px'}}>
       <div className='row'>
-        <Sticky>
-          <h5 style={headingStyles}>{`${this.props.title} - Day ${this.props.dayNumber}`}</h5>
+        <Sticky style={{zIndex: this.props.index || 1}}>
+          <div style={headingStyles}>
+            <div className='container'>
+              <h5>{`${this.props.title} - Day ${this.props.dayNumber}`}</h5>
+            </div>
+          </div>
         </Sticky>
         {this.props.children}
       </div>
@@ -31,6 +35,7 @@ export default class PhotoGroup extends React.Component {
 
 PhotoGroup.propTypes = {
   title: React.PropTypes.string,
-  dayNumber: React.PropTypes.number
+  dayNumber: React.PropTypes.number,
+  index: React.PropTypes.number
 
 }

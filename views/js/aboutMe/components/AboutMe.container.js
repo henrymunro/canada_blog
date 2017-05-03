@@ -25,7 +25,7 @@ export default class AboutMe extends React.Component {
   render () {
     return <div style={{background: color.themeBackground, color: color.theme50}}>
       <NavBar currentRoute={this.props.currentRoute} />
-      <div className='container'>
+      <div className='container' style={{marginTop: '40px'}}>
         <div className='row'>
           <div className='col s12 m12 l12'>
             <div style={{padding: '20px', width: '50%', maxWidth: '350px', height: 'auto', float: 'right'}} >

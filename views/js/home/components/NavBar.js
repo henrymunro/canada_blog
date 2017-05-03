@@ -14,7 +14,7 @@ export default class NavBar extends React.Component {
     const navBarStyles = {
 // position: 'fixed',
       width: '100%',
-      height: '50px',
+      // height: '50px',
 // top: 0,
       zIndex: 2
     }
