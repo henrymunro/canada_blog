@@ -4,12 +4,16 @@ import { updateObject, removeElementFromArray, updateItemInArray } from '../redu
 import { mapReducerCreator } from '../map'
 
 const initialState = {
-  photos: []
+  photos: [],
+  photoHovered: null,
+  photoClicked: null
 }
 
 const photosReducer = handleActions({
   GET_PHOTOS_FULFILLED: (state, action) => updateObject(state, { photos: action.payload.data }),
-  REMOVE_PHOTO_ON_LOAD_ERROR: (state, action) => _removePhotoOnLoadError(state, action)
+  REMOVE_PHOTO_ON_LOAD_ERROR: (state, action) => _removePhotoOnLoadError(state, action),
+  PHOTO_ON_MOUSE_ENTER: (state, action) => updateObject(state, {photoHovered: action.payload}),
+  PHOTO_ON_CLICK: (state, action) => updateObject(state, {photoClicked: action.payload})
 }, initialState)
 
 const photosMapReducer = mapReducerCreator('PHOTOS')
@@ -32,6 +36,8 @@ const _removePhotoOnLoadError = (state, action) => {
 
 /*  #############       Selectors     ################   */
 export const getPhotos = (state) => (state.photos.photosRoot.photos)
+export const getPhotoHovered = (state) => (state.photos.photosRoot.photoHovered)
+export const getPhotoClicked = (state) => (state.photos.photosRoot.photoClicked)
 
 /* ############### Map Selectors ################### */
 

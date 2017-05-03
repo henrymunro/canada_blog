@@ -21,7 +21,7 @@ export default class PhotoGroup extends React.Component {
 
     return <div style={{paddingLeft: '5px', paddingRight: '5px'}}>
       <div className='row'>
-        <Sticky style={{zIndex: this.props.index || 1}}>
+        <Sticky style={{zIndex: 1}}>
           <div style={headingStyles}>
             <div className='container'>
               <h5>{`${this.props.title} - Day ${this.props.dayNumber}`}</h5>

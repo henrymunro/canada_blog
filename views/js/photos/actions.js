@@ -12,6 +12,8 @@ const photosActions = createActions({
 
 },
 actions.REMOVE_PHOTO_ON_LOAD_ERROR,
+actions.PHOTO_ON_MOUSE_ENTER,
+actions.PHOTO_ON_CLICK
 )
 
 export default Object.assign({}, photosMapActions, photosActions)

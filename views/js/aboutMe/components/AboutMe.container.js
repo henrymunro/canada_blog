@@ -23,10 +23,9 @@ export default class AboutMe extends React.Component {
   }
 
   render () {
-
     const textDivStyles = {
       background: color.theme900,
-      borderRadius: '4px', 
+      borderRadius: '4px',
       padding: '15px'
     }
 
