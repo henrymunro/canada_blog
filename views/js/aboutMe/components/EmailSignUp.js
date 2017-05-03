@@ -26,6 +26,7 @@ export default class EmailSignUp extends React.Component {
           <TextField
             inputStyle={{color: color.theme50}}
             hintStyle={{color: color.theme600}}
+            onChange={(e, val) => this.props.onChange({firstName: val})}
             hintText='First name'
             fullWidth />
         </div>
@@ -33,6 +34,7 @@ export default class EmailSignUp extends React.Component {
           <TextField
             inputStyle={{color: color.theme50}}
             hintStyle={{color: color.theme600}}
+            onChange={(e, val) => this.props.onChange({lastName: val})}
             hintText='Last name'
             fullWidth />
         </div>
@@ -41,11 +43,13 @@ export default class EmailSignUp extends React.Component {
             hintText='Email Address'
             inputStyle={{color: color.theme50}}
             hintStyle={{color: color.theme600}}
+            onChange={(e, val) => this.props.onChange({email: val})}
             fullWidth />
         </div>
         <div className='col s12 m12 l12' style={{marginTop: '10px'}}>
           <FlatButton
             backgroundColor={color.theme300}
+            onClick={this.props.onSave}
             label='Sign up' />
         </div>
       </div>
@@ -54,5 +58,7 @@ export default class EmailSignUp extends React.Component {
 }
 
 EmailSignUp.propTypes = {
+  onChange: React.PropTypes.func,
+  onSave: React.PropTypes.func
 
 }

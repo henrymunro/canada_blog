@@ -13,7 +13,9 @@ import SocialMediaLinks from './SocialMediaLinks.container'
 @connect((store, ownProps) => {
   return {
     currentRoute: ownProps.location.pathname,
-    aboutMe: selectors.getAboutMe(store)
+    aboutMe: selectors.getAboutMe(store),
+    emailSignUpForm: selectors.getEmailSignUpForm(store),
+    emailSignedUp: selectors.getEmailSignedUp(store)
   }
 }, actions)
 
@@ -21,6 +23,15 @@ export default class AboutMe extends React.Component {
 
   componentWillMount () {
 
+  }
+
+  validateEmailSignUpInput () {
+    const { firstName, lastName, email } = this.props.emailSignUpForm
+    if (firstName && lastName && email) {
+      this.props.sendEmailSignUp(this.props.emailSignUpForm)
+    } else {
+      console.log('NOT SENDING')
+    }
   }
 
   render () {
@@ -59,7 +70,7 @@ export default class AboutMe extends React.Component {
           </div>
           <div className='col s12 m6 l5' style={{marginTop: '30px'}}>
             <GroupingBox>
-              <EmailSignUp />
+              <EmailSignUp onChange={this.props.updateEmailSignUpForm} onSave={this.validateEmailSignUpInput.bind(this)} />
             </GroupingBox>
           </div>
         </div>

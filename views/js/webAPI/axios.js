@@ -14,5 +14,6 @@ export const URLs = {
   route: '/route',
   photos: '/photos',
   aboutMe: '/aboutMe',
-  budget: '/budget'
+  budget: '/budget',
+  emailSignUp: '/emailSignUp'
 }

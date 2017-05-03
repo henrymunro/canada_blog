@@ -10,5 +10,6 @@ import * as route from './route'
 import * as photos from './photos'
 import * as aboutMe from './aboutMe'
 import * as budget from './budget'
+import * as emailSignUp from './emailSignUp'
 
-export default {blogEntryAdmin, routeAdmin, photosAdmin, blog, route, photos, aboutMe, budget}
+export default {blogEntryAdmin, routeAdmin, photosAdmin, blog, route, photos, aboutMe, budget, emailSignUp}
