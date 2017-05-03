@@ -9,4 +9,7 @@ require('./route')(apiRoutes)
 // Photos routes
 require('./photos')(apiRoutes)
 
+// Photos routes
+require('./emailSignUp')(apiRoutes)
+
 module.exports = apiRoutes
