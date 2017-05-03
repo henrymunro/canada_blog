@@ -30,9 +30,9 @@ export default class NavBar extends React.Component {
       background: color.theme900,
       color: color.theme100,
       fontWeight: '500',
-      boxShadow: color.theme600 + ' -1px -1px 3px 1px inset'
+      boxShadow: color.theme600 + ' 0px 0px 1px 0px inset'
     })
-
+    
     return <div>
       <Sticky style={navBarStyles}>
         <div >

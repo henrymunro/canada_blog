@@ -13,7 +13,8 @@ export default class PhotoGroup extends React.Component {
   render () {
     const headingStyles = {
       color: color.theme50,
-      background: color.themeBackgroundDark,
+      // background: color.themeBackgroundDark,
+      background: `linear-gradient(${color.themeBackgroundDark} 10%, ${color.themeBackground} 90%)`,
       paddingTop: '5px',
       paddingBottom: '5px'
     }

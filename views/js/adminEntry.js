@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+import { StickyContainer } from 'react-sticky'
 
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -31,16 +32,18 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-    <Router history={history}>
-      <Route component={AdminHome}>
-        <Route path='/admin' component={Home} />
-        <Route path='/admin/newBlogEntry' component={NewBlogEntry} />
-        <Route path='/admin/route' component={RouteComponent} />
-        <Route path='/admin/blogEntries' component={BlogEntries} />
-        <Route path='/admin/blog' component={Blog} />
-        <Route path='/admin/home' component={Home} />
-      </Route>
-    </Router>
+    <StickyContainer>
+      <Router history={history}>
+        <Route component={AdminHome}>
+          <Route path='/admin' component={Home} />
+          <Route path='/admin/newBlogEntry' component={NewBlogEntry} />
+          <Route path='/admin/route' component={RouteComponent} />
+          <Route path='/admin/blogEntries' component={BlogEntries} />
+          <Route path='/admin/blog' component={Blog} />
+          <Route path='/admin/home' component={Home} />
+        </Route>
+      </Router>
+    </StickyContainer>
   </MuiThemeProvider>
 </Provider>, app)
 /*

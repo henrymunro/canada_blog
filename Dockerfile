@@ -5,9 +5,9 @@ FROM node:boron
 RUN mkdir -p /var/src/app
 WORKDIR /var/src/app
 
-
 # Install app dependencies
 COPY package.json /var/src/
+
 RUN npm install --production
 
 # Bundle server source
