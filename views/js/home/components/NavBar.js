@@ -12,10 +12,10 @@ export default class NavBar extends React.Component {
 
   render () {
     const navBarStyles = {
-     // position: 'fixed',
+// position: 'fixed',
       width: '100%',
       height: '50px',
-      //top: 0,
+// top: 0,
       zIndex: 2
     }
 
@@ -34,33 +34,33 @@ export default class NavBar extends React.Component {
     })
 
     return <div>
-        <Sticky style={navBarStyles}>
-          <div >
-            <div className='row' style={{margin: 0, padding: 0}}>
-              <Link to='home'>
-                <div className='col s3 m3 l3' style={this.checkPathName('home') ? navButtonActiveStyle : navButtonStyle}>
-                  <div className='center-align'>HOME</div>
-                </div>
-              </Link>
-              <Link to='aboutMe'>
-                <div className='col s3 m3 l3' style={this.checkPathName('aboutMe') ? navButtonActiveStyle : navButtonStyle}>
-                  <div className='center-align'>ABOUT ME</div>
-                </div>
-              </Link>
-              <Link to='photos'>
-                <div className='col s3 m3 l3' style={this.checkPathName('photos') ? navButtonActiveStyle : navButtonStyle}>
-                  <div className='center-align'>PHOTOS</div>
-                </div>
-              </Link>
-              <Link to='blog'>
-                <div className='col s3 m3 l3' style={this.checkPathName('blog') ? navButtonActiveStyle : navButtonStyle}>
-                  <div className='center-align'>BLOG</div>
-                </div>
-              </Link>
-            </div>
+      <Sticky style={navBarStyles}>
+        <div >
+          <div className='row' style={{margin: 0, padding: 0}}>
+            <Link to='home'>
+              <div className='col s3 m3 l3' style={this.checkPathName('home') ? navButtonActiveStyle : navButtonStyle}>
+                <div className='center-align'>HOME</div>
+              </div>
+            </Link>
+            <Link to='aboutMe'>
+              <div className='col s3 m3 l3' style={this.checkPathName('aboutMe') ? navButtonActiveStyle : navButtonStyle}>
+                <div className='center-align'>ABOUT ME</div>
+              </div>
+            </Link>
+            <Link to='photos'>
+              <div className='col s3 m3 l3' style={this.checkPathName('photos') ? navButtonActiveStyle : navButtonStyle}>
+                <div className='center-align'>PHOTOS</div>
+              </div>
+            </Link>
+            <Link to='blog'>
+              <div className='col s3 m3 l3' style={this.checkPathName('blog') ? navButtonActiveStyle : navButtonStyle}>
+                <div className='center-align'>BLOG</div>
+              </div>
+            </Link>
           </div>
-        </Sticky>
-      </div>
+        </div>
+      </Sticky>
+    </div>
   }
 }
 
