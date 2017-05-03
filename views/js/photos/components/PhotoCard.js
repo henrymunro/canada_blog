@@ -1,6 +1,6 @@
 import React from 'react'
 import isEqual from 'lodash.isequal'
-import {Card, CardMedia, CardTitle} from 'material-ui/Card'
+import {Card, CardMedia} from 'material-ui/Card'
 
 import ResizedPhoto from './ResizedPhoto'
 
@@ -34,7 +34,7 @@ export default class PhotoCard extends React.Component {
       <Card style={{margin: '2px', zIndex: 0}}>
         <CardMedia
           style={{padding: 0, overflow: 'hidden'}}
-          overlay={!this.props.hovered ? <div /> : <CardTitle title={this.props.photo.name} subtitle={this.props.photo.summary} />}
+          // overlay={!this.props.hovered ? <div /> : <CardTitle title={this.props.photo.name} subtitle={this.props.photo.summary} />}
           >
           <ResizedPhoto photo={this.props.photo} style={fullImageStyle} size='750x500' onError={this.props.onError} />
         </CardMedia>

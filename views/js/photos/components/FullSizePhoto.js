@@ -31,6 +31,7 @@ export default class FullSizePhoto extends React.Component {
     return <div className='valign-wrapper' style={divStyle} onClick={this.props.close} >
       <div className='container'>
         <div className='center-align'>
+          <h5 style={{color: color.theme50}}>{this.props.photo.name}</h5>
           <ResizedPhoto photo={this.props.photo} style={photoStyles} size='1000x666' onError={this.props.close} />
         </div>
       </div>
