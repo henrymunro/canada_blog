@@ -1,16 +1,6 @@
-# London-Twitter-Map-Web-Server
+# Canada Blog
+
+This is a web application I developed to document my 5 month, 5000 mile cycle tour across Canada. It is a React/Redux front end, NodeJS server and is hosted with AWS. I moved this project to a private repository during development due to potential plans to monetise the blog. 
 
 
-
-# Docker build commands
-docker build -t canada_blog_staging . &&
-docker tag canada_blog_staging:latest 293326272061.dkr.ecr.us-east-1.amazonaws.com/canada_blog_staging:latest && 
-docker push 293326272061.dkr.ecr.us-east-1.amazonaws.com/canada_blog_staging:latest
-
-
-
-docker build -f Nginx.Dockerfile -t nginx . &&
-docker tag nginx:latest 293326272061.dkr.ecr.us-east-1.amazonaws.com/nginx:latest &&
-docker push 293326272061.dkr.ecr.us-east-1.amazonaws.com/nginx:latest &&
-git add -A &&
-eb deploy --staged
+The live version can be viewed at: [https://boysonbikesworldwide.com/](https://boysonbikesworldwide.com/)
